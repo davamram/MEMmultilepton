@@ -37,7 +37,7 @@ cd $PWD/../LHAPDF-6.2.1-install
 
 cd share/LHAPDF
 
-wget http://www.hepforge.org/archive/lhapdf/pdfsets/6.2/NNPDF30_lo_as_0118_qed.tar.gz -O- | tar xz
+wget http://www.hepforge.org/archive/lhapdf/pdfsets/6.2/NNPDF30_lo_as_0118.tar.gz -O- | tar xz
 
 #Configure MEMmultilepton (mostly compilations)
 
