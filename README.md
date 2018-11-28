@@ -21,7 +21,7 @@ make install
 
 #Source LHAPDF environmental variables:
 
-setenv LHAPDF $PWD/../LHAPDF-6.2.2-install
+setenv LHAPDF $PWD/../LHAPDF-6.2.1-install
 
 setenv LHAPATH $LHAPDF/share/LHAPDF/
 
@@ -50,5 +50,4 @@ cd MEMmultilepton
 cd Examples
 
 ./simpleMEManalyzer config.cfg
-~                                                                                                                                                                         
 
