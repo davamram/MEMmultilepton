@@ -14,6 +14,7 @@ wget http://www.hepforge.org/archive/lhapdf/LHAPDF-6.2.1.tar.gz -O- | tar xz
 cd LHAPDF-6.2.1
 
 ./configure --prefix=$PWD/../LHAPDF-6.2.1-install \ 
+
 --with-boost=/afs/cern.ch/sw/lcg/external/Boost/1.55.0_python2.7/x86_64-slc6-gcc47-opt
 
 make -j2
