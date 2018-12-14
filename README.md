@@ -55,3 +55,4 @@ cd Examples
 
 ./simpleMEManalyzer config.cfg
 
+#Please use the config.cfg file in the config directory (instead of in the example directory) if your interface the MEM with your own code
