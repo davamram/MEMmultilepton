@@ -41,6 +41,8 @@ cd share/LHAPDF
 
 wget http://www.hepforge.org/archive/lhapdf/pdfsets/6.2/NNPDF30_lo_as_0118.tar.gz -O- | tar xz
 
+cd ../../../
+
 #Configure MEMmultilepton (mostly compilations)
 
 cd MEMmultilepton
