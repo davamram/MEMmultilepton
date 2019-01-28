@@ -43,6 +43,12 @@ wget http://www.hepforge.org/archive/lhapdf/pdfsets/6.2/NNPDF30_lo_as_0118.tar.g
 
 cd ../../../
 
+#Setup ROOT (most importantly, it has to be installed with GSL and Minuit2 dependences)
+
+source /afs/cern.ch/sw/lcg/external/gcc/4.9/x86_64-slc6-gcc49-opt/setup.csh
+
+source /afs/cern.ch/sw/lcg/app/releases/ROOT/6.06.06/x86_64-slc6-gcc49-opt/root/bin/thisroot.csh
+
 #Configure MEMmultilepton (mostly compilations)
 
 cd MEMmultilepton
@@ -55,4 +61,4 @@ cd Examples
 
 ./simpleMEManalyzer config.cfg
 
-#Please use the config.cfg file in the config directory (instead of in the example directory) if your interface the MEM with your own code
+#Please use config/config.cfg instead of Example/config.cfg if your interface the MEM with your own code (contains absolute path to the transfer functions and Madgraph directory)

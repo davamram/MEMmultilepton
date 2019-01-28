@@ -1,9 +1,9 @@
 #!/bin/bash
 
-cd Madgraph
+cd data/Madgraph
 ./SetupMadgraph.sh
 
-cd ../
+cd ../../
 make clean
 make -j8
 

@@ -1,19 +1,19 @@
 #------------------------------------------------------------------------------
-#Madgraph definitions
-TTH_MADINCDIR=../Madgraph/PROC_SA_CPP_sm_4/src
-THAD_MADINCDIR=../Madgraph/PROC_SA_CPP_sm_DECAY_tbwjj/src
-ATHAD_MADINCDIR=../Madgraph/PROC_SA_CPP_sm_DECAY_antitbwjj/src
-TLEP_MADINCDIR=../Madgraph/PROC_SA_CPP_sm_DECAY_tbwlnu/src
-H2L2NU_MADINCDIR=../Madgraph/PROC_SA_CPP_sm_DECAY_hw2l2nu/src
-TTLL_MADINCDIR=../Madgraph/PROC_SA_CPP_sm_DECAY_ggttll/src
-TTWP_MADINCDIR=../Madgraph/PROC_SA_CPP_sm_ckm_DECAY_qqttlpvl/src
-TTWM_MADINCDIR=../Madgraph/PROC_SA_CPP_sm_ckm_DECAY_qqttlmvl/src
-TTWPJJ_MADINCDIR=../Madgraph/PROC_SA_CPP_sm_ckm_DECAY_ppttlpvljj/src
-TTWMJJ_MADINCDIR=../Madgraph/PROC_SA_CPP_sm_ckm_DECAY_ppttlmvljj/src
-TTbar_MADINCDIR=../Madgraph/PROC_SA_CPP_sm_DECAY_ggtt/src
-TLLQ_MADINCDIR=../Madgraph/PROC_SA_CPP_sm_no_b_mass_DECAY_pptllq/src
-WZJJ_MADINCDIR=../Madgraph/PROC_SA_CPP_sm_DECAY_gqlnullgq/src
-THQ_MADINCDIR=../Madgraph/PROC_SA_CPP_sm_no_b_mass_DECAY_ppthq/src
+#data/Madgraph definitions
+TTH_MADINCDIR=../data/Madgraph/PROC_SA_CPP_sm_4/src
+THAD_MADINCDIR=../data/Madgraph/PROC_SA_CPP_sm_DECAY_tbwjj/src
+ATHAD_MADINCDIR=../data/Madgraph/PROC_SA_CPP_sm_DECAY_antitbwjj/src
+TLEP_MADINCDIR=../data/Madgraph/PROC_SA_CPP_sm_DECAY_tbwlnu/src
+H2L2NU_MADINCDIR=../data/Madgraph/PROC_SA_CPP_sm_DECAY_hw2l2nu/src
+TTLL_MADINCDIR=../data/Madgraph/PROC_SA_CPP_sm_DECAY_ggttll/src
+TTWP_MADINCDIR=../data/Madgraph/PROC_SA_CPP_sm_ckm_DECAY_qqttlpvl/src
+TTWM_MADINCDIR=../data/Madgraph/PROC_SA_CPP_sm_ckm_DECAY_qqttlmvl/src
+TTWPJJ_MADINCDIR=../data/Madgraph/PROC_SA_CPP_sm_ckm_DECAY_ppttlpvljj/src
+TTWMJJ_MADINCDIR=../data/Madgraph/PROC_SA_CPP_sm_ckm_DECAY_ppttlmvljj/src
+TTbar_MADINCDIR=../data/Madgraph/PROC_SA_CPP_sm_DECAY_ggtt/src
+TLLQ_MADINCDIR=../data/Madgraph/PROC_SA_CPP_sm_no_b_mass_DECAY_pptllq/src
+WZJJ_MADINCDIR=../data/Madgraph/PROC_SA_CPP_sm_DECAY_gqlnullgq/src
+THQ_MADINCDIR=../data/Madgraph/PROC_SA_CPP_sm_no_b_mass_DECAY_ppthq/src
 MADINCDIR = -I$(TTH_MADINCDIR) -I$(THAD_MADINCDIR) -I$(ATHAD_MADINCDIR) -I$(TLEP_MADINCDIR) -I$(H2L2NU_MADINCDIR) -I$(TTLL_MADINCDIR) -I$(TTWP_MADINCDIR) -I$(TTWM_MADINCDIR) -I${TTWPJJ_MADINCDIR} -I${TTWMJJ_MADINCDIR} -I${TTbar_MADINCDIR} -I${TLLQ_MADINCDIR} -I${WZJJ_MADINCDIR} -I${THQ_MADINCDIR}
 #------------------------------------------------------------------------------
 # ROOT definitions

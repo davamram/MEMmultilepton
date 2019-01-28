@@ -1,40 +1,8 @@
-#ifndef PARTICLESELECTOR_H
-#define PARTICLESELECTOR_H
+#ifndef PARTICLESELECTOR_CPP
+#define PARTICLESELECTOR_CPP
 
-#include "MultiLepton.cpp"
-//#include "MEPhaseSpace.cpp"
-
-class ParticleSelector{
-
-public:
-
-  ParticleSelector();
-  ~ParticleSelector();
-
-  int nActualLeptons;
-  int nActualJets;
-  int nActualBjets;
- 
-  int nIntrinsicLeptons;  
-  int nIntrinsicJets;
-  int nIntrinsicBjets;
-
-  bool doSelectOnlyBtaggedJets;
-  double csvthresh;
-
-  void SetIntrinsicNumOfParticles(MultiLepton*, int);
-
-  void FillAllJets(MultiLepton*);
-
-  int SelectJetsAndBjetsFromAllJet(MultiLepton*);
-  void SelectBjets(MultiLepton*, string, int*, int*, bool);
-  //void SelectLeptons(MultiLepton*);
-
-  //void SetCatJets(MultiLepton*);
-
-private:
-
-};
+#include "../interface/MultiLepton.h"
+#include "../interface/ParticleSelector.h"
 
 ParticleSelector::ParticleSelector(){
 

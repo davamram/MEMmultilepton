@@ -3,11 +3,11 @@
 /*  Author : N. Chanon (IPNL)                      */
 /***************************************************/
 
-#include "../src/HypIntegrator.cpp"
-#include "../src/MultiLepton.cpp"
-#include "../src/ConfigParser.cpp"
-#include "../src/Tools.cpp"
-#include "../src/Permutations.cpp"
+#include "../interface/HypIntegrator.h"
+#include "../interface/MultiLepton.h"
+#include "../interface/ConfigParser.h"
+#include "../interface/Tools.h"
+#include "../interface/Permutations.h"
 
 #include <iostream>
 
@@ -28,7 +28,8 @@ int main(int argc, char *argv[])
   ConfigParser cfgParser;
   cfgParser.LoadConfig(string(argv[1]));
   cfgParser.GetHypotheses(&nhyp, &shyp, &hyp, &nPointsHyp, &index_hyp);
-
+  //Here overwrite the path to the Transfer function and Madgraph directory if needed with cfgParser.SetTransferFunction and cfgParser.SetMadgraphDir
+  
   //Initialize the integrator
   HypIntegrator hypIntegrator;
   hypIntegrator.InitializeIntegrator(&cfgParser);

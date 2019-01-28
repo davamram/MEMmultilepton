@@ -1,63 +1,15 @@
 
-#ifndef CONFIGPARSER_H
-#define CONFIGPARSER_H
+#ifndef CONFIGPARSER_CPP
+#define CONFIGPARSER_CPP
 
 #include <iostream>
 #include <fstream>
 #include <string>
 
-//#include "MultiLepton.cpp"
-#include "MEPhaseSpace.cpp"
+#include "../interface/ConfigParser.h"
+#include "../interface/MEPhaseSpace.h"
 
 using namespace std;
-
-class ConfigParser
-{
-  public:
-  ConfigParser();
-  ~ConfigParser();
-
-  void LoadConfig(string);
-  void GetConfigFromFile(string);
-  void GetHypotheses(int*, string**, int**, int**, int**);
- 
-  void ReadIntegrationRange();
-  void ReadJetChoice();
-  void ReadOptim();
-
-  ifstream fconf;
-
-  int nHyp;
-  string* sHyp;
-  int* Hyp;
-  int *index_hyp;
-/*
-  int nhyp;
-  string* shyp;
-  int* hyp;
-  int* nPointsHyp;
-  int* index_hyp;
-*/
-  int doTTLL, doTTHfl, doTTHsl, doTTW, doTTWJJ, doTTbarfl, doTTbarsl, doTLLJ, doWZJJ, doTHJ;
-  int nPointsHypTTLL, nPointsHypTTHsl, nPointsHypTTHfl, nPointsHypTTW, nPointsHypTTWJJ, nPointsHypTTbarfl, nPointsHypTTbarsl, nPointsHypTLLJ, nPointsHypWZJJ, nPointsHypTHJ;
-  double valJetTFfracmin, valJetTFfracmax, valNeutMaxE;
-  string valJetChoice;
-  int valOptim, valOptimTopLep, valOptimTopHad, valOptimHiggs, valOptimW;
-  double valCsvThresh;
-  string valPdf, valMadgraphDir, valTFfile;
-  int valGenerator;
-  double valComEnergy;
-  int valVerbosity;
-  int valTFChoice, valTFOption;
-  int valDoMinimization;
-  int nJetSyst;
-
-  void ReadOptionValue(string*, int*);
-  void ReadOptionValue(string*, double*);
-  void ReadOptionValue(string*, string*);
-
-  private:
-};
 
 ConfigParser::ConfigParser(){
   valVerbosity = 0;
@@ -281,31 +233,12 @@ void ConfigParser::ReadIntegrationRange(){
   if (valVerbosity>=1) cout << "Integration will use JetTFfracmin="<< valJetTFfracmin<<" JetTFfracmax="<< valJetTFfracmax <<" NeutMaxE="<< valNeutMaxE <<endl;
   return;
 }
-/*
-void ConfigParser::LoadIntegrationRange(double* jetTFfracmin, double* jetTFfracmax, double* neutMaxE){
 
-  *jetTFfracmin = valJetTFfracmin;
-  *jetTFfracmax = valJetTFfracmax;
-  *neutMaxE = valNeutMaxE;
-
-  cout << "Integration will use JetTFfracmin="<< (*jetTFfracmin)<<" JetTFfracmax="<< (*jetTFfracmax) <<" NeutMaxE="<< (*neutMaxE) <<endl;
-
-  return;
-}
-*/
 void ConfigParser::ReadJetChoice(){
   if (valVerbosity>=1) cout << "In 2j categories, choose 2 jets with option "<< valJetChoice<< endl;
   return;
 }
-/*
-void ConfigParser::LoadJetChoice(string* jetChoice){
 
-  *jetChoice = valJetChoice;
-  cout << "In 2j categories, choose 2 jets with option "<< (*jetChoice) << endl;
-
-  return;
-}
-*/
 void ConfigParser::ReadOptim(){
 
   if (valVerbosity>=1) cout << "Optimizing phase space with option: "<< valOptim <<endl;
@@ -313,22 +246,21 @@ void ConfigParser::ReadOptim(){
 
 }
 
-/*
-void ConfigParser::LoadOptim(int* doOptim){
+void ConfigParser::SetTransferFunction(string TFpath){
 
-  *doOptim = valOptim;
-  cout << "Optimizing phase space with option: "<< (*doOptim) <<endl;
+  valTFfile = TFpath;
+  if (valVerbosity>=1) cout << "Using transfer function: "<<valTFfile<<endl;
+
+  return;
 }
 
-void ConfigParser::LoadOptim(int* doOptimTopHad, int* doOptimTopLep, int* doOptimHiggs, int* doOptimW){
+void ConfigParser::SetMadgraphDir(string MGpath){
 
-  *doOptimTopHad = valOptimTopHad;
-  *doOptimTopLep = valOptimTopLep;
-  *doOptimHiggs = valOptimHiggs;
-  *doOptimW = valOptimW;
+  valMadgraphDir = MGpath;
+  if (valVerbosity>=1) cout << "Using Madgraph path: "<<valMadgraphDir<<endl;
 
-  cout << "Optimizing phase space with option: TopHad "<< (*doOptimTopHad)<<", TopLep "<< (*doOptimTopLep)<< ", Higgs "<< (*doOptimHiggs)<< ", Woffshell "<< (*doOptimW)<<endl;
+  return;
 }
-*/
+
 
 #endif
