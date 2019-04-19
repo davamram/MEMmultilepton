@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd data/Madgraph
+cd src/Madgraph
 ./SetupMadgraph.sh
 
 cd ../../
