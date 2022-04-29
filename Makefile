@@ -163,15 +163,15 @@ SOFLAGS = #-shared #-dynamiclib #-single_module #-undefined dynamic_lookup
 
 CXXFLAGS     += $(ROOTCFLAGS) -I${TTH_MADPROCDIR} -I$(TTH_MADINCDIR) -I${THAD_MADPROCDIR} -I$(THAD_MADINCDIR) -I${ATHAD_MADPROCDIR} -I$(ATHAD_MADINCDIR) -I${TLEP_MADPROCDIR} -I$(TLEP_MADINCDIR) -I${H2L2NU_MADPROCDIR} -I$(H2L2NU_MADINCDIR) -I${TTLL_MADPROCDIR} -I$(TTLL_MADINCDIR) -I${TTWP_MADPROCDIR_udx} -I${TTWP_MADPROCDIR_cdx} -I${TTWP_MADPROCDIR_usx} -I$(TTWP_MADINCDIR) -I${TTWM_MADPROCDIR_dux} -I${TTWM_MADPROCDIR_dcx} -I${TTWM_MADPROCDIR_sux} -I$(TTWM_MADINCDIR) ${LHAPDFINCDIR}  -I${TTWPJJ_MADPROCDIR_0} -I${TTWPJJ_MADPROCDIR_1} -I${TTWPJJ_MADPROCDIR_2} -I${TTWPJJ_MADPROCDIR_3} -I${TTWPJJ_MADPROCDIR_4} -I${TTWPJJ_MADPROCDIR_5} -I${TTWPJJ_MADINCDIR}  -I${TTWMJJ_MADPROCDIR_0} -I${TTWMJJ_MADPROCDIR_1} -I${TTWMJJ_MADPROCDIR_2} -I${TTWMJJ_MADPROCDIR_3} -I${TTWMJJ_MADPROCDIR_4} -I${TTWMJJ_MADPROCDIR_5} -I${TTWMJJ_MADINCDIR} -I${TTbar_MADPROCDIR_0} -I${TTbar_MADINCDIR}  -I${TLLQ_MADPROCDIR_0} -I${TLLQ_MADPROCDIR_1} -I${TLLQ_MADPROCDIR_2} -I${TLLQ_MADPROCDIR_3} -I${TLLQ_MADINCDIR} -I${WZJJ_MADPROCDIR_0} -I${WZJJ_MADPROCDIR_1} -I${WZJJ_MADINCDIR}  -I${THQ_MADPROCDIR_0} -I${THQ_MADPROCDIR_1} -I${THQ_MADPROCDIR_2} -I${THQ_MADPROCDIR_3} -I${THQ_MADINCDIR}
 
-LIBS         = ${ROOTGLIBS} ${ROOTLIBS} 
+LIBS         = ${ROOTGLIBS} ${ROOTLIBS}
 #------------------------------------------------------------------------------
 # Compilation
 
 all: libMEMmultilepton.a
 
 clean:
-	rm *.o
-	rm *.a
+	rm -f *.o
+	rm -f *.a
 
 memobjects = MEPhaseSpace.o MultiLepton.o HypIntegrator.o TransferFunctions.o ParticleSelector.o Permutations.o ConfigParser.o Tools.o
 
@@ -181,8 +181,8 @@ modelobjects = ${TTH_MADINCDIR}/read_slha.o ${TTH_MADINCDIR}/HelAmps_sm.o ${TTH_
 
 objects = ${memobjects} ${processobjects} ${modelobjects}
 
-libMEMmultilepton.a: $(objects) 
-	ar -r libMEMmultilepton.a $(objects) 
+libMEMmultilepton.a: $(objects)
+	ar -r libMEMmultilepton.a $(objects)
 
 
 Tools.o: src/Tools.cpp
@@ -208,5 +208,3 @@ MEPhaseSpace.o: src/MEPhaseSpace.cpp
 
 MultiLepton.o: src/MultiLepton.cpp
 	$(CXX) ${LIBS} ${CXXFLAGS} -c src/MultiLepton.cpp
-
-

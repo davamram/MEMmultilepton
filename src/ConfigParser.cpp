@@ -2,10 +2,6 @@
 #ifndef CONFIGPARSER_CPP
 #define CONFIGPARSER_CPP
 
-#include <iostream>
-#include <fstream>
-#include <string>
-
 #include "../interface/ConfigParser.h"
 #include "../interface/MEPhaseSpace.h"
 
@@ -18,7 +14,7 @@ ConfigParser::ConfigParser(){
 void ConfigParser::LoadConfig(string InputFile){
 
   GetConfigFromFile(InputFile);
-  
+
   ReadIntegrationRange();
   ReadOptim();
   ReadJetChoice();
@@ -36,7 +32,7 @@ void ConfigParser::GetConfigFromFile(string InputFile){
   getline(fconf, line);
   ReadOptionValue(&option, &valVerbosity);
 
-  getline(fconf, line); 
+  getline(fconf, line);
   getline(fconf, line);
   getline(fconf, line);
   ReadOptionValue(&option, &doTTLL);
@@ -144,7 +140,7 @@ void ConfigParser::GetHypotheses(int* nhyp, string** shyp, int** hyp, int** nPoi
 
   (*shyp) = new string[(*nhyp)];
   (*hyp) = new int[(*nhyp)];
-  (*nPointsHyp) = new int[(*nhyp)]; 
+  (*nPointsHyp) = new int[(*nhyp)];
 
   (*index_hyp) = new int[10];
   for (int i=0; i<10; i++) (*index_hyp)[i] = -1;

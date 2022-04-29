@@ -43,17 +43,13 @@ LIBS         = ${ROOTGLIBS} ${ROOTLIBS}  -L../ -lMEMmultilepton ${LHAPDFLIB}
 all : simpleMEManalyzer
 
 clean:
-	rm *.o
+	rm -f *.o
 	rm simpleMEManalyzer*
 
 objects= SimpleMEManalyzer.o
 
-simpleMEManalyzer: $(objects) 
+simpleMEManalyzer: $(objects)
 	$(CXX) -o simpleMEManalyzer  $(objects) ${LIBS}  $(CXXFLAGS) #${SOFLAGS}
 
-SimpleMEManalyzer.o: SimpleMEManalyzer.cpp 
+SimpleMEManalyzer.o: SimpleMEManalyzer.cpp
 	$(CXX) ${LIBS} ${CXXFLAGS} -c SimpleMEManalyzer.cpp
-
-
-
-

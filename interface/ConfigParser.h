@@ -1,6 +1,10 @@
 #ifndef CONFIGPARSER_H
 #define CONFIGPARSER_H
 
+#include <iostream>
+#include <fstream>
+#include <string>
+
 using namespace std;
 
 class ConfigParser
@@ -23,7 +27,7 @@ class ConfigParser
   string* sHyp;
   int* Hyp;
   int *index_hyp;
-  
+
   int doTTLL, doTTHfl, doTTHsl, doTTW, doTTWJJ, doTTbarfl, doTTbarsl, doTLLJ, doWZJJ, doTHJ;
   int nPointsHypTTLL, nPointsHypTTHsl, nPointsHypTTHfl, nPointsHypTTW, nPointsHypTTWJJ, nPointsHypTTbarfl, nPointsHypTTbarsl, nPointsHypTLLJ, nPointsHypWZJJ, nPointsHypTHJ;
   double valJetTFfracmin, valJetTFfracmax, valNeutMaxE;
