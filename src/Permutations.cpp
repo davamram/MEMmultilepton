@@ -26,7 +26,7 @@ void Permutations::CopyResults(Permutations P){
 
   nHypAllowed = P.nHypAllowed;
   nNullResult = P.nNullResult;
-   
+
 
   resMEM_max = P.resMEM_max;
   resMEM_maxKinFit = P.resMEM_maxKinFit;
@@ -58,20 +58,20 @@ void Permutations::SetMultiLepton(MultiLepton* multilepton_, HypIntegrator* hypI
   multiLepton.SetVerbosity(verbosity);
 
   if (verbosity>=1) cout << "Before ParticleSelector: Nleptons="<< multiLepton.Leptons.size()<<", Category: "<<multiLepton.kCatJets<<endl;
-  
+
   (*hypIntegrator).meIntegrator->SetNleptonMode(multiLepton.Leptons.size());
 
   particleSelector->csvthresh = (*hypIntegrator).csvthresh;
 
   if (multiLepton.AllJets.size()==0) particleSelector->FillAllJets(&multiLepton); //to be done only if AllJets is not filled from before
-  particleSelector->SelectJetsAndBjetsFromAllJet(&multiLepton); //get jet pairs from alljets collection 
+  particleSelector->SelectJetsAndBjetsFromAllJet(&multiLepton); //get jet pairs from alljets collection
 
   if (verbosity>=1) cout << "After ParticleSelector: Nleptons="<< multiLepton.Leptons.size()<<", Category: "<<multiLepton.kCatJets<<endl;
 
   return;
 }
 
-int Permutations::InitializeHyp(HypIntegrator* hypIntegrator, int hyp, int nPointsHyp, string shyp){ 
+int Permutations::InitializeHyp(HypIntegrator* hypIntegrator, int hyp, int nPointsHyp, string shyp){
 //, int doMinimization_, string JetChoice, int nPermutationJetSyst_){
 
   int doMinimization = hypIntegrator->doMinimization;
@@ -192,8 +192,8 @@ int Permutations::InitializeHyp(HypIntegrator* hypIntegrator, int hyp, int nPoin
      //|| (hyp==kMEM_TLLJ_TopLepDecay && (multiLepton.kCatJets==kCat_3l_1b_1j || multiLepton.kCatJets==kCat_3l_2b_1j))
      || (multiLepton.Leptons.size()==3 && hyp==kMEM_TLLJ_TopLepDecay)
      || (multiLepton.Leptons.size()==3 && hyp==kMEM_THJ_TopLepDecay)
-     || hyp==kMEM_TTbar_TopAntitopFullyLepDecay 
-     || multiLepton.kCatJets==kCat_3l_2b_0j 
+     || hyp==kMEM_TTbar_TopAntitopFullyLepDecay
+     || multiLepton.kCatJets==kCat_3l_2b_0j
      || multiLepton.Leptons.size()==4)
 	doPermutationJet=false;
 */
@@ -232,6 +232,13 @@ void Permutations::LoopPermutations(HypIntegrator* hypIntegrator){
   int iperm=0;
 
   if (verbosity>=1) cout << "Start looping" << endl;
+  if (verbosity>=1){
+    cout << "BSize : "<<multiLepton.Bjets.size() << endl;
+    cout << "JSize : "<<multiLepton.Jets.size() << endl;
+    cout << "doPermB/J/L : "<<doPermutationBjet<<" ; "<<doPermutationJet<<" ; "<<doPermutationLep<<endl;
+
+  }
+
 
      multiLepton.DoSort(&multiLepton.Bjets);
      do {
@@ -257,7 +264,7 @@ void Permutations::LoopPermutations(HypIntegrator* hypIntegrator){
 	       res = GetMEMResult(hypIntegrator);
 	       if (resMEM_max.weight < res.weight) resMEM_max = res;
 	       resMEM_all.push_back(res);
-	
+
 	       //Save MEM weight and Kin Fit result for best Kin Fit (minimization from initial value of integration variables)
 	       if (doMinimization>=1) {
                  if (resMinimized.weight/xs > resKin_maxKinFit.weight) {
@@ -285,10 +292,13 @@ void Permutations::LoopPermutations(HypIntegrator* hypIntegrator){
 
            if (doPermutationLep) {
              //if (Hypothesis!=kMEM_TTbar_TopAntitopSemiLepDecay) permreslep = multiLepton.DoPermutation(&multiLepton.Leptons);
+             cout<<"nIntrinsicLeptons / nActualLeptons : "<<particleSelector->nIntrinsicLeptons<<" / "<<particleSelector->nActualLeptons<<endl;
              if (particleSelector->nIntrinsicLeptons==1 && particleSelector->nActualLeptons > 1) permreslep = multiLepton.DoPermutationLinear("lepton",&multiLepton.Leptons);
+             if (particleSelector->nIntrinsicLeptons >= 2 && particleSelector->nActualLeptons >= particleSelector->nIntrinsicLeptons) cout<<"CLiNG"<<endl;
              if (particleSelector->nIntrinsicLeptons >= 2 && particleSelector->nActualLeptons >= particleSelector->nIntrinsicLeptons) permreslep = multiLepton.DoPermutation(&multiLepton.Leptons);
              //else if (particleSelector->nIntrinsicLeptons < particleSelector->nActualLeptons) permreslep = multiLepton.DoPermutationLinear("lepton",&multiLepton.Leptons);
            }
+           cout<<"permreslep : "<<permreslep<<endl;
          } while (doPermutationLep && permreslep);
 
          if (doPermutationJet) {
@@ -313,9 +323,9 @@ void Permutations::LoopPermutations(HypIntegrator* hypIntegrator){
   if (resMEM_max.weight==0) resMEM_max.weight = 1e-300;
 
   if (resKin_maxKinFit.weight==0) resMEM_maxKinFit.weight = 1e-300;
-  if (resKin_maxKinFit_Int.weight==0) resMEM_maxKinFit_Int.weight = 1e-300; 
+  if (resKin_maxKinFit_Int.weight==0) resMEM_maxKinFit_Int.weight = 1e-300;
 
-  if (resKin_maxKinFit.weight==0) resKin_maxKinFit.weight = 1e-300; 
+  if (resKin_maxKinFit.weight==0) resKin_maxKinFit.weight = 1e-300;
   if (resKin_maxKinFit_Int.weight==0) resKin_maxKinFit_Int.weight = 1e-300;
 
   UpdateAverageWeight(&resMEM_avgExl0, resMEM_all, true, "avg");
@@ -335,10 +345,10 @@ IntegrationResult Permutations::GetMEMKinFitResult(HypIntegrator* hypIntegrator,
 
   double kinresweightmin = 1000;
   double * var;
-  std::vector<double> intvar_tmp; 
- 
+  std::vector<double> intvar_tmp;
+
   (*hypIntegrator).meIntegrator->SetMinimization(1);
-             
+
   (*hypIntegrator).meIntegrator->weight_max = 0;
 
   for (int itry=0; itry<ntry; itry++){
@@ -347,7 +357,7 @@ IntegrationResult Permutations::GetMEMKinFitResult(HypIntegrator* hypIntegrator,
     resMin = (*hypIntegrator).DoMinimization(multiLepton.xL, multiLepton.xU, var);
 
     if (verbosity>=1) cout << "DOMINIMIZATION KIN TRY Hyp "<< HypothesisName <<" Vegas Ncall="<<(*hypIntegrator).nPointsCatHyp <<" -log(max)=" << resMin.weight<<" Time(s)="<<resMin.time<<endl;
- 
+
     if ( resMin.weight < kinresweightmin) {
       kinresweightmin = resMin.weight;
       intvar_tmp = resMin.intvar;
@@ -450,11 +460,11 @@ void Permutations::UpdateAverageWeight(IntegrationResult* ResAvg, std::vector<In
   double nWeightsTot = 0;
   if (doExclude0weight) nWeightsTot = (double)nHypAllowed;
   else nWeightsTot = (double)(nHypAllowed+nNullResult);
- 
+
   (*ResAvg).weight /= nWeightsTot;
   (*ResAvg).err = sqrt((*ResAvg).err)/nWeightsTot;
   //(*ResAvg).time /= nWeightsTot;
-  (*ResAvg).chi2 /= nWeightsTot; 
+  (*ResAvg).chi2 /= nWeightsTot;
 
   if (!((*ResAvg).weight>0)) (*ResAvg).weight = 1e-300;
   if (!((*ResAvg).weight>0) && mode=="logavg") (*ResAvg).weight = log(1e-300);

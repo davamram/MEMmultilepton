@@ -94,7 +94,7 @@ int ParticleSelector::SelectJetsAndBjetsFromAllJet(MultiLepton* multilepton_){
 
   //B-jet cat
   int ib1=-1, ib2=-1;
-  SelectBjets(multilepton_, "HighestBtagDiscrim", &ib1, &ib2, doSelectOnlyBtaggedJets); 
+  SelectBjets(multilepton_, "HighestBtagDiscrim", &ib1, &ib2, doSelectOnlyBtaggedJets);
   (*multilepton_).Bjets.clear();
   if (ib1!=-1) (*multilepton_).FillParticle("bjet", multilepton_->AllJets.at(ib1));
   if (ib2!=-1) (*multilepton_).FillParticle("bjet", multilepton_->AllJets.at(ib2));
@@ -129,7 +129,7 @@ int ParticleSelector::SelectJetsAndBjetsFromAllJet(MultiLepton* multilepton_){
   else if (is2lss && ib1!=-1 && ib2!=-1 && multilepton_->AllJets.size()-2==1) (*multilepton_).kCatJets = kCat_2lss_2b_1j;
   else if (is2lss && ib1!=-1 && ib2==-1 && multilepton_->AllJets.size()-1==2) (*multilepton_).kCatJets = kCat_2lss_1b_2j;
   else if (is2lss && ib1!=-1 && ib2==-1 && multilepton_->AllJets.size()-1==1) (*multilepton_).kCatJets = kCat_2lss_1b_1j;
-  //4l 
+  //4l
   else if (is4l && ib1!=-1 && ib2!=-1) (*multilepton_).kCatJets = kCat_4l_2b;
   else if (is4l && ib1!=-1 && ib2==-1) (*multilepton_).kCatJets = kCat_4l_1b;
   //3l
@@ -158,10 +158,10 @@ int ParticleSelector::SelectJetsAndBjetsFromAllJet(MultiLepton* multilepton_){
             pt_max = multilepton_->AllJets.at(ij).P4.Pt();
             ij1 = ij;
         }
-	//cout << "Entre: pt-ptmax="<<multilepton_->AllJets.at(ij).P4.Pt()-pt_max<<endl; 
+	//cout << "Entre: pt-ptmax="<<multilepton_->AllJets.at(ij).P4.Pt()-pt_max<<endl;
         if (multilepton_->AllJets.at(ij).P4.Pt() < pt_max && multilepton_->AllJets.at(ij).P4.Pt() > pt_max2){
-            pt_max2 = multilepton_->AllJets.at(ij).P4.Pt(); 
-            ij2 = ij; 
+            pt_max2 = multilepton_->AllJets.at(ij).P4.Pt();
+            ij2 = ij;
         }
 	if (fabs(multilepton_->AllJets.at(ij).P4.Eta()) > fabs(eta_max)) {
 	    eta_max2 = eta_max;
@@ -181,14 +181,14 @@ int ParticleSelector::SelectJetsAndBjetsFromAllJet(MultiLepton* multilepton_){
                 ik1=ij;
                 ik2=ik;
                 diffmass_min = TMath::Abs(mass-80.419);
-            } 
+            }
             if (mass<mass_min){
                 il1=ij;
                 il2=ik;
                 mass_min = mass;
-            } 
-        } 
-    }  
+            }
+        }
+    }
 
  //Choose 2 more jets
     int io1=-1, io2=-1, ip1=-1, ip2=-1, im1=-1, im2=-1;
@@ -224,7 +224,7 @@ int ParticleSelector::SelectJetsAndBjetsFromAllJet(MultiLepton* multilepton_){
   (*multilepton_).JetsHighestPt.clear();
   (*multilepton_).JetsClosestMw.clear();
   (*multilepton_).JetsLowestMjj.clear();
-  (*multilepton_).JetsHighestEta.clear(); 
+  (*multilepton_).JetsHighestEta.clear();
 
   //cout << "ij1="<<ij1<<" ij2="<<ij2<<endl;
 
@@ -299,7 +299,7 @@ void ParticleSelector::SetIntrinsicNumOfParticles(MultiLepton* multilepton_, int
 
   //To be  called once Jets collection is filled (in Permutations.h)
 
-  nActualLeptons = multilepton_->Leptons.size(); 
+  nActualLeptons = multilepton_->Leptons.size();
   //nActualJets = multilepton_->AllJets.size(); //or a maximum value of 4 ?
   nActualJets = multilepton_->Jets.size();
   nActualBjets = multilepton_->Bjets.size(); //or a maximum value of 2 ?
@@ -370,6 +370,10 @@ void ParticleSelector::SetIntrinsicNumOfParticles(MultiLepton* multilepton_, int
     if (nActualLeptons==3) {
       nIntrinsicLeptons = 2;
       nIntrinsicJets = 0;
+    }
+    if (nActualLeptons==4) {
+      nIntrinsicLeptons=4;
+      nIntrinsicJets=0;
     }
   }
 
