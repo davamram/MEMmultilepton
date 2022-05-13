@@ -232,12 +232,6 @@ void Permutations::LoopPermutations(HypIntegrator* hypIntegrator){
   int iperm=0;
 
   if (verbosity>=1) cout << "Start looping" << endl;
-  if (verbosity>=1){
-    cout << "BSize : "<<multiLepton.Bjets.size() << endl;
-    cout << "JSize : "<<multiLepton.Jets.size() << endl;
-    cout << "doPermB/J/L : "<<doPermutationBjet<<" ; "<<doPermutationJet<<" ; "<<doPermutationLep<<endl;
-
-  }
 
 
      multiLepton.DoSort(&multiLepton.Bjets);
@@ -292,13 +286,10 @@ void Permutations::LoopPermutations(HypIntegrator* hypIntegrator){
 
            if (doPermutationLep) {
              //if (Hypothesis!=kMEM_TTbar_TopAntitopSemiLepDecay) permreslep = multiLepton.DoPermutation(&multiLepton.Leptons);
-             cout<<"nIntrinsicLeptons / nActualLeptons : "<<particleSelector->nIntrinsicLeptons<<" / "<<particleSelector->nActualLeptons<<endl;
              if (particleSelector->nIntrinsicLeptons==1 && particleSelector->nActualLeptons > 1) permreslep = multiLepton.DoPermutationLinear("lepton",&multiLepton.Leptons);
-             if (particleSelector->nIntrinsicLeptons >= 2 && particleSelector->nActualLeptons >= particleSelector->nIntrinsicLeptons) cout<<"CLiNG"<<endl;
              if (particleSelector->nIntrinsicLeptons >= 2 && particleSelector->nActualLeptons >= particleSelector->nIntrinsicLeptons) permreslep = multiLepton.DoPermutation(&multiLepton.Leptons);
              //else if (particleSelector->nIntrinsicLeptons < particleSelector->nActualLeptons) permreslep = multiLepton.DoPermutationLinear("lepton",&multiLepton.Leptons);
            }
-           cout<<"permreslep : "<<permreslep<<endl;
          } while (doPermutationLep && permreslep);
 
          if (doPermutationJet) {
