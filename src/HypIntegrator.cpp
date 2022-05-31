@@ -34,7 +34,7 @@ HypIntegrator::HypIntegrator(){
     toIntegrate[i] = new ROOT::Math::Functor(meIntegrator, &MEPhaseSpace::Eval, i);
   }
 
-  intPoints = 10000; 
+  intPoints = 10000;
   ig2 = new ROOT::Math::GSLMCIntegrator( ROOT::Math::IntegrationMultiDim::kVEGAS, 1.e-12, 1.e-5, intPoints);
   param = new ROOT::Math::VegasParameters( *(ig2->ExtraOptions()) );
 
@@ -43,7 +43,7 @@ HypIntegrator::HypIntegrator(){
 
 
   //minimizer->SetPrintLevel(0); //FIXME -- put back
- 
+
 }
 
 HypIntegrator::~HypIntegrator(){
@@ -75,15 +75,15 @@ void HypIntegrator::InitializeIntegrator(ConfigParser* cfgParser){
   if (cfgParser->valVerbosity>=1) cout << "Before loading minimizers" << endl;
 
   doMinimization = cfgParser->valDoMinimization;
-  jetChoice = cfgParser->valJetChoice; 
-  nPermutationJetSyst = cfgParser->nJetSyst;  
+  jetChoice = cfgParser->valJetChoice;
+  nPermutationJetSyst = cfgParser->nJetSyst;
   csvthresh = cfgParser->valCsvThresh;
 
   if (doMinimization==1) minimizer = ROOT::Math::Factory::CreateMinimizer("Minuit2", "Migrad");
   if (doMinimization==2) minimizer = ROOT::Math::Factory::CreateMinimizer("Minuit2", "Simplex");
   //if (doMinimization==3) minimizer = ROOT::Math::Factory::CreateMinimizer("subgradient","");
 
-  if (cfgParser->valVerbosity>=1) cout << "End of InitializeIntegrator" <<endl; 
+  if (cfgParser->valVerbosity>=1) cout << "End of InitializeIntegrator" <<endl;
   //minimizer->SetPrintLevel(0); //FIXME -- put back
 
  return;
@@ -126,8 +126,8 @@ void HypIntegrator::SetupIntegrationHypothesis(int kMode, int kCat, int nPoints)
     }
   }
   else if (meIntegrator->iNleptons==4){
-    if (kCat==kCat_4l_2b) nPointsCatHyp *= 3;   
-    if (kCat==kCat_4l_1b) nPointsCatHyp *= 30; 
+    if (kCat==kCat_4l_2b) nPointsCatHyp *= 3;
+    if (kCat==kCat_4l_1b) nPointsCatHyp *= 30;
   }
   else if (meIntegrator->iNleptons==2){
     if (kMode!=kMEM_TTW_TopAntitopDecay && kMode!=kMEM_TTbar_TopAntitopSemiLepDecay && kMode!=kMEM_THJ_TopLepDecay && kMode!=kMEM_THJ_TopLepDecay){
@@ -166,7 +166,7 @@ void HypIntegrator::SetupMinimizerHypothesis(int kMode, int kCat, int stageValue
   minimizer->SetMaxFunctionCalls(nPointsCatHyp);
   //minimizer->SetPrintLevel(0); //FIXME -- put back
 
-  //subgd->SetFunction(*FunctorHyp);   
+  //subgd->SetFunction(*FunctorHyp);
 
   return;
 }
@@ -192,8 +192,8 @@ IntegrationResult HypIntegrator::DoIntegration(double* xL, double* xU, int stage
   ResetCounters();
   IntegrationResult res;
 
-  double click1 = std::clock(); 
-  
+  double click1 = std::clock();
+
   res.weight = ig2->Integral(xL, xU);
   res.time = ( std::clock() - click1 ) / (double) CLOCKS_PER_SEC;
   res.err = ig2->Error();
@@ -222,11 +222,11 @@ double* HypIntegrator::FindMinimizationiInitialValues(double* xL, double* xU)
     }
     val = meIntegrator->Eval(var);
     //cout << "val=" << val<< endl;
-    if (val<valmin) { 
-      valmin = val; 
-      //ival=i; 
+    if (val<valmin) {
+      valmin = val;
+      //ival=i;
       for (unsigned int ivarb=0; ivarb<minimizer->NDim(); ivarb++) varbest[ivarb] = var[ivarb];
-      } 
+      }
   }
 
     if (valmin!=1000) {
@@ -250,10 +250,10 @@ IntegrationResult HypIntegrator::DoMinimization(double* xL, double* xU, double* 
 
   string si;
   stringstream* ss = new stringstream[minimizer->NDim()];
-  for (unsigned int i=0; i<minimizer->NDim(); i++){ 
+  for (unsigned int i=0; i<minimizer->NDim(); i++){
     ss[i] << i;
     ss[i] >> si;
-    minimizer->SetLimitedVariable(i, si, xInit[i], 0.01, xL[i], xU[i]); 
+    minimizer->SetLimitedVariable(i, si, xInit[i], 0.01, xL[i], xU[i]);
   }
 
   double click1 = std::clock();
@@ -266,11 +266,11 @@ IntegrationResult HypIntegrator::DoMinimization(double* xL, double* xU, double* 
   res.weight = meIntegrator->Eval(xs);
   res.intvar = meIntegrator->weight_max_intvar;
 
-  return res;  
+  return res;
 }
 
 void HypIntegrator::FillErrHist(TH1F** h){
- 
+
   //cout << "FillErrHist nIteration="<<meIntegrator->iIteration<<endl;
 
   for (int i=0; i<5; i++) {

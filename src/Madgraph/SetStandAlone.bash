@@ -1,7 +1,7 @@
 #!/bin/bash
 
-model=sm_no_b_mass
-suffix="ppthq"
+model=dim6top_LO_UFO-ctl2_17
+suffix="ggttll"
 
 cd PROC_SA_CPP_${model}_DECAY_${suffix}
 echo Entering PROC_SA_CPP_${model}_DECAY_${suffix}
@@ -14,6 +14,7 @@ mv Parameters_${model}.cc Parameters_${model}_${suffix}.cc
 mv Parameters_${model}.h Parameters_${model}_${suffix}.h
 mkdir tmp
 mv read_slha.* tmp/
+ln -s ../../PROC_SA_CPP_sm_4/src/read_slha.h read_slha.h
 sed -i s/_${model}/_${model}_${suffix}/g HelAmps_${model}_${suffix}.cc
 sed -i s/_${model}/_${model}_${suffix}/g HelAmps_${model}_${suffix}.h
 sed -i s/_${model}/_${model}_${suffix}/g Parameters_${model}_${suffix}.cc
@@ -45,4 +46,3 @@ do
   make
   cd ..
 done
-

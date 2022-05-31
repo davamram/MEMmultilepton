@@ -1,9 +1,9 @@
 #!/bin/bash
 
 #PROC_SA_CPP_sm_DECAY_gqlnullgq
-model=sm_no_b_mass
-suffix="ppthq"
-Name="THQ"
+model=dim6top_LO_UFO-ctl2_17
+suffix="ggttll"
+Name="TTLL_EFT"
 
 ProcDir=PROC_SA_CPP_${model}_DECAY_${suffix}
 echo Generating code for ${ProcDir} with MakeFile name ${Name}
@@ -19,7 +19,7 @@ ls -d */ | awk -F "/" '{ print $1 }' > l
 NUM=0
 for dir in `cat l`
 do
-  #echo $NUM 
+  #echo $NUM
   echo ${Name}_MADPROCESS_${NUM}=CPPProcess_${dir}
   echo ${Name}_MADPROCDIR_${NUM}=../Madgraph/${ProcDir}/SubProcesses/${dir}
   ((NUM+=1))
@@ -31,7 +31,7 @@ echo
 echo Add to CXXFLAGS:
 for i in `seq 0 ${NUM}`
 do
-  echo -n ' '-I\${${Name}_MADPROCDIR_${i}} 
+  echo -n ' '-I\${${Name}_MADPROCDIR_${i}}
 done
 echo -n ' '-I\${${Name}_MADINCDIR}
 echo
@@ -88,8 +88,3 @@ do
 done
 
 echo Manually change ComputeSubMatrixElement and the phase space computation
-
-
-
-
- 
