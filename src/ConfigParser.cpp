@@ -55,6 +55,8 @@ void ConfigParser::GetConfigFromFile(string InputFile){
   ReadOptionValue(&option, &nPointsHypWZJJ);
   ReadOptionValue(&option, &doTHJ);
   ReadOptionValue(&option, &nPointsHypTHJ);
+  ReadOptionValue(&option, &doTTLL_EFT);
+  ReadOptionValue(&option, &nPointsHypTTLL_EFT);
 
   ReadOptionValue(&option, &valOptim);
   ReadOptionValue(&option, &valOptimTopHad);
@@ -137,6 +139,7 @@ void ConfigParser::GetHypotheses(int* nhyp, string** shyp, int** hyp, int** nPoi
   if (doTLLJ) (*nhyp)++;
   if (doWZJJ) (*nhyp)++;
   if (doTHJ) (*nhyp)++;
+  if (doTTLL_EFT) (*nhyp)++;
 
   (*shyp) = new string[(*nhyp)];
   (*hyp) = new int[(*nhyp)];
@@ -215,6 +218,13 @@ void ConfigParser::GetHypotheses(int* nhyp, string** shyp, int** hyp, int** nPoi
     (*hyp)[ih] = kMEM_THJ_TopLepDecay;
     (*nPointsHyp)[ih] = nPointsHypTHJ;
     (*index_hyp)[9] = ih;
+    ih++;
+  }
+  if (doTTLL_EFT){
+    (*shyp)[ih] = "TTLL_EFT";
+    (*hyp)[ih] = kMEM_TTLL_EFT_TopAntitopDecay;
+    (*nPointsHyp)[ih] = nPointsHypTTLL_EFT;
+    (*index_hyp)[10] = ih;
     ih++;
   }
 

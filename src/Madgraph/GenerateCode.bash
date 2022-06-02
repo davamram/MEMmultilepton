@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #PROC_SA_CPP_sm_DECAY_gqlnullgq
-model=dim6top_LO_UFO-ctl2_17
+model=dim6top_LO_UFO_ctl2
 suffix="ggttll"
 Name="TTLL_EFT"
 
@@ -21,7 +21,7 @@ for dir in `cat l`
 do
   #echo $NUM
   echo ${Name}_MADPROCESS_${NUM}=CPPProcess_${dir}
-  echo ${Name}_MADPROCDIR_${NUM}=../Madgraph/${ProcDir}/SubProcesses/${dir}
+  echo ${Name}_MADPROCDIR_${NUM}=src/Madgraph/${ProcDir}/SubProcesses/${dir}
   ((NUM+=1))
 done
 
@@ -65,7 +65,7 @@ done
 echo Add to MEPhaseSpace.h:
 for dir in `cat l`
 do
-  echo \#include \"../Madgraph/${ProcDir}/SubProcesses/${dir}/CPPProcess_${dir}.h\"
+  echo \#include \"../src/Madgraph/${ProcDir}/SubProcesses/${dir}/CPPProcess_${dir}.h\"
 done
 
 echo

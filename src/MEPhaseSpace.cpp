@@ -42,6 +42,7 @@ MEPhaseSpace::MEPhaseSpace(){
   //total cross sections
   xsTTH = 0.284034;
   xsTTLL = 0.02722653;
+  xsTTLL_EFT=0.0015144;
   xsTTW = 0.04378 + 0.0217;
   xsTTbar = 441.3;
   xsTLLJ = 0.540 + 0.284;
@@ -249,125 +250,15 @@ void MEPhaseSpace::InitializeMadgraphProcesses(string MadgraphDir){
   process_P0_Sigma_sm_no_b_mass_uxbx_txhdx->initProc(MGcard.c_str());
   if (verbosity>=1) cout << "THQ Process nexternal=" << process_P0_Sigma_sm_no_b_mass_uxbx_txhdx->nexternal << endl;
 
-  MGcard = MadgraphDir + "/PROC_SA_CPP_dim6top_LO_UFO_ctl2_17_DECAY_ggttll/Cards/param_card.dat";
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_ddx_bepvebxemvexepem = new CPPProcess_P1_Sigma_dim6top_LO_UFO_ctl2_17_ddx_bepvebxemvexepem();
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_ddx_bepvebxemvexepem->initProc(MGcard.c_str());
-  if (verbosity>=1) cout << "TTLL_EFT Process nexternal=" << process_P1_Sigma_dim6top_LO_UFO_ctl2_17_ddx_bepvebxemvexepem->nexternal << endl;
+  MGcard = MadgraphDir + "/PROC_SA_CPP_dim6top_LO_UFO_ctl2_DECAY_ggttll/Cards/param_card.dat";
+  process_P1_Sigma_dim6top_LO_UFO_ctl2_gg_ttxepem = new CPPProcess_P1_Sigma_dim6top_LO_UFO_ctl2_gg_ttxepem();
+  process_P1_Sigma_dim6top_LO_UFO_ctl2_gg_ttxepem->initProc(MGcard.c_str());
+  if (verbosity>=1) cout << "TTLL_EFT Process nexternal=" << process_P1_Sigma_dim6top_LO_UFO_ctl2_gg_ttxepem->nexternal << endl;
 
-  MGcard = MadgraphDir + "/PROC_SA_CPP_dim6top_LO_UFO_ctl2_17_DECAY_ggttll/Cards/param_card.dat";
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_ddx_bepvebxemvexmupmum = new CPPProcess_P1_Sigma_dim6top_LO_UFO_ctl2_17_ddx_bepvebxemvexmupmum();
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_ddx_bepvebxemvexmupmum->initProc(MGcard.c_str());
-  if (verbosity>=1) cout << "TTLL_EFT Process nexternal=" << process_P1_Sigma_dim6top_LO_UFO_ctl2_17_ddx_bepvebxemvexmupmum->nexternal << endl;
-
-  MGcard = MadgraphDir + "/PROC_SA_CPP_dim6top_LO_UFO_ctl2_17_DECAY_ggttll/Cards/param_card.dat";
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_ddx_bepvebxmumvmxepem = new CPPProcess_P1_Sigma_dim6top_LO_UFO_ctl2_17_ddx_bepvebxmumvmxepem();
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_ddx_bepvebxmumvmxepem->initProc(MGcard.c_str());
-  if (verbosity>=1) cout << "TTLL_EFT Process nexternal=" << process_P1_Sigma_dim6top_LO_UFO_ctl2_17_ddx_bepvebxmumvmxepem->nexternal << endl;
-
-  MGcard = MadgraphDir + "/PROC_SA_CPP_dim6top_LO_UFO_ctl2_17_DECAY_ggttll/Cards/param_card.dat";
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_ddx_bepvebxmumvmxmupmum = new CPPProcess_P1_Sigma_dim6top_LO_UFO_ctl2_17_ddx_bepvebxmumvmxmupmum();
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_ddx_bepvebxmumvmxmupmum->initProc(MGcard.c_str());
-  if (verbosity>=1) cout << "TTLL_EFT Process nexternal=" << process_P1_Sigma_dim6top_LO_UFO_ctl2_17_ddx_bepvebxmumvmxmupmum->nexternal << endl;
-
-  MGcard = MadgraphDir + "/PROC_SA_CPP_dim6top_LO_UFO_ctl2_17_DECAY_ggttll/Cards/param_card.dat";
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_ddx_bmupvmbxemvexepem = new CPPProcess_P1_Sigma_dim6top_LO_UFO_ctl2_17_ddx_bmupvmbxemvexepem();
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_ddx_bmupvmbxemvexepem->initProc(MGcard.c_str());
-  if (verbosity>=1) cout << "TTLL_EFT Process nexternal=" << process_P1_Sigma_dim6top_LO_UFO_ctl2_17_ddx_bmupvmbxemvexepem->nexternal << endl;
-
-  MGcard = MadgraphDir + "/PROC_SA_CPP_dim6top_LO_UFO_ctl2_17_DECAY_ggttll/Cards/param_card.dat";
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_ddx_bmupvmbxemvexmupmum = new CPPProcess_P1_Sigma_dim6top_LO_UFO_ctl2_17_ddx_bmupvmbxemvexmupmum();
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_ddx_bmupvmbxemvexmupmum->initProc(MGcard.c_str());
-  if (verbosity>=1) cout << "TTLL_EFT Process nexternal=" << process_P1_Sigma_dim6top_LO_UFO_ctl2_17_ddx_bmupvmbxemvexmupmum->nexternal << endl;
-
-  MGcard = MadgraphDir + "/PROC_SA_CPP_dim6top_LO_UFO_ctl2_17_DECAY_ggttll/Cards/param_card.dat";
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_ddx_bmupvmbxmumvmxepem = new CPPProcess_P1_Sigma_dim6top_LO_UFO_ctl2_17_ddx_bmupvmbxmumvmxepem();
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_ddx_bmupvmbxmumvmxepem->initProc(MGcard.c_str());
-  if (verbosity>=1) cout << "TTLL_EFT Process nexternal=" << process_P1_Sigma_dim6top_LO_UFO_ctl2_17_ddx_bmupvmbxmumvmxepem->nexternal << endl;
-
-  MGcard = MadgraphDir + "/PROC_SA_CPP_dim6top_LO_UFO_ctl2_17_DECAY_ggttll/Cards/param_card.dat";
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_ddx_bmupvmbxmumvmxmupmum = new CPPProcess_P1_Sigma_dim6top_LO_UFO_ctl2_17_ddx_bmupvmbxmumvmxmupmum();
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_ddx_bmupvmbxmumvmxmupmum->initProc(MGcard.c_str());
-  if (verbosity>=1) cout << "TTLL_EFT Process nexternal=" << process_P1_Sigma_dim6top_LO_UFO_ctl2_17_ddx_bmupvmbxmumvmxmupmum->nexternal << endl;
-
-  MGcard = MadgraphDir + "/PROC_SA_CPP_dim6top_LO_UFO_ctl2_17_DECAY_ggttll/Cards/param_card.dat";
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_gg_bepvebxemvexepem = new CPPProcess_P1_Sigma_dim6top_LO_UFO_ctl2_17_gg_bepvebxemvexepem();
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_gg_bepvebxemvexepem->initProc(MGcard.c_str());
-  if (verbosity>=1) cout << "TTLL_EFT Process nexternal=" << process_P1_Sigma_dim6top_LO_UFO_ctl2_17_gg_bepvebxemvexepem->nexternal << endl;
-
-  MGcard = MadgraphDir + "/PROC_SA_CPP_dim6top_LO_UFO_ctl2_17_DECAY_ggttll/Cards/param_card.dat";
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_gg_bepvebxemvexmupmum = new CPPProcess_P1_Sigma_dim6top_LO_UFO_ctl2_17_gg_bepvebxemvexmupmum();
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_gg_bepvebxemvexmupmum->initProc(MGcard.c_str());
-  if (verbosity>=1) cout << "TTLL_EFT Process nexternal=" << process_P1_Sigma_dim6top_LO_UFO_ctl2_17_gg_bepvebxemvexmupmum->nexternal << endl;
-
-  MGcard = MadgraphDir + "/PROC_SA_CPP_dim6top_LO_UFO_ctl2_17_DECAY_ggttll/Cards/param_card.dat";
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_gg_bepvebxmumvmxepem = new CPPProcess_P1_Sigma_dim6top_LO_UFO_ctl2_17_gg_bepvebxmumvmxepem();
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_gg_bepvebxmumvmxepem->initProc(MGcard.c_str());
-  if (verbosity>=1) cout << "TTLL_EFT Process nexternal=" << process_P1_Sigma_dim6top_LO_UFO_ctl2_17_gg_bepvebxmumvmxepem->nexternal << endl;
-
-  MGcard = MadgraphDir + "/PROC_SA_CPP_dim6top_LO_UFO_ctl2_17_DECAY_ggttll/Cards/param_card.dat";
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_gg_bepvebxmumvmxmupmum = new CPPProcess_P1_Sigma_dim6top_LO_UFO_ctl2_17_gg_bepvebxmumvmxmupmum();
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_gg_bepvebxmumvmxmupmum->initProc(MGcard.c_str());
-  if (verbosity>=1) cout << "TTLL_EFT Process nexternal=" << process_P1_Sigma_dim6top_LO_UFO_ctl2_17_gg_bepvebxmumvmxmupmum->nexternal << endl;
-
-  MGcard = MadgraphDir + "/PROC_SA_CPP_dim6top_LO_UFO_ctl2_17_DECAY_ggttll/Cards/param_card.dat";
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_gg_bmupvmbxemvexepem = new CPPProcess_P1_Sigma_dim6top_LO_UFO_ctl2_17_gg_bmupvmbxemvexepem();
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_gg_bmupvmbxemvexepem->initProc(MGcard.c_str());
-  if (verbosity>=1) cout << "TTLL_EFT Process nexternal=" << process_P1_Sigma_dim6top_LO_UFO_ctl2_17_gg_bmupvmbxemvexepem->nexternal << endl;
-
-  MGcard = MadgraphDir + "/PROC_SA_CPP_dim6top_LO_UFO_ctl2_17_DECAY_ggttll/Cards/param_card.dat";
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_gg_bmupvmbxemvexmupmum = new CPPProcess_P1_Sigma_dim6top_LO_UFO_ctl2_17_gg_bmupvmbxemvexmupmum();
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_gg_bmupvmbxemvexmupmum->initProc(MGcard.c_str());
-  if (verbosity>=1) cout << "TTLL_EFT Process nexternal=" << process_P1_Sigma_dim6top_LO_UFO_ctl2_17_gg_bmupvmbxemvexmupmum->nexternal << endl;
-
-  MGcard = MadgraphDir + "/PROC_SA_CPP_dim6top_LO_UFO_ctl2_17_DECAY_ggttll/Cards/param_card.dat";
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_gg_bmupvmbxmumvmxepem = new CPPProcess_P1_Sigma_dim6top_LO_UFO_ctl2_17_gg_bmupvmbxmumvmxepem();
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_gg_bmupvmbxmumvmxepem->initProc(MGcard.c_str());
-  if (verbosity>=1) cout << "TTLL_EFT Process nexternal=" << process_P1_Sigma_dim6top_LO_UFO_ctl2_17_gg_bmupvmbxmumvmxepem->nexternal << endl;
-
-  MGcard = MadgraphDir + "/PROC_SA_CPP_dim6top_LO_UFO_ctl2_17_DECAY_ggttll/Cards/param_card.dat";
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_gg_bmupvmbxmumvmxmupmum = new CPPProcess_P1_Sigma_dim6top_LO_UFO_ctl2_17_gg_bmupvmbxmumvmxmupmum();
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_gg_bmupvmbxmumvmxmupmum->initProc(MGcard.c_str());
-  if (verbosity>=1) cout << "TTLL_EFT Process nexternal=" << process_P1_Sigma_dim6top_LO_UFO_ctl2_17_gg_bmupvmbxmumvmxmupmum->nexternal << endl;
-
-  MGcard = MadgraphDir + "/PROC_SA_CPP_dim6top_LO_UFO_ctl2_17_DECAY_ggttll/Cards/param_card.dat";
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_uux_bepvebxemvexepem = new CPPProcess_P1_Sigma_dim6top_LO_UFO_ctl2_17_uux_bepvebxemvexepem();
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_uux_bepvebxemvexepem->initProc(MGcard.c_str());
-  if (verbosity>=1) cout << "TTLL_EFT Process nexternal=" << process_P1_Sigma_dim6top_LO_UFO_ctl2_17_uux_bepvebxemvexepem->nexternal << endl;
-
-  MGcard = MadgraphDir + "/PROC_SA_CPP_dim6top_LO_UFO_ctl2_17_DECAY_ggttll/Cards/param_card.dat";
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_uux_bepvebxemvexmupmum = new CPPProcess_P1_Sigma_dim6top_LO_UFO_ctl2_17_uux_bepvebxemvexmupmum();
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_uux_bepvebxemvexmupmum->initProc(MGcard.c_str());
-  if (verbosity>=1) cout << "TTLL_EFT Process nexternal=" << process_P1_Sigma_dim6top_LO_UFO_ctl2_17_uux_bepvebxemvexmupmum->nexternal << endl;
-
-  MGcard = MadgraphDir + "/PROC_SA_CPP_dim6top_LO_UFO_ctl2_17_DECAY_ggttll/Cards/param_card.dat";
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_uux_bepvebxmumvmxepem = new CPPProcess_P1_Sigma_dim6top_LO_UFO_ctl2_17_uux_bepvebxmumvmxepem();
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_uux_bepvebxmumvmxepem->initProc(MGcard.c_str());
-  if (verbosity>=1) cout << "TTLL_EFT Process nexternal=" << process_P1_Sigma_dim6top_LO_UFO_ctl2_17_uux_bepvebxmumvmxepem->nexternal << endl;
-
-  MGcard = MadgraphDir + "/PROC_SA_CPP_dim6top_LO_UFO_ctl2_17_DECAY_ggttll/Cards/param_card.dat";
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_uux_bepvebxmumvmxmupmum = new CPPProcess_P1_Sigma_dim6top_LO_UFO_ctl2_17_uux_bepvebxmumvmxmupmum();
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_uux_bepvebxmumvmxmupmum->initProc(MGcard.c_str());
-  if (verbosity>=1) cout << "TTLL_EFT Process nexternal=" << process_P1_Sigma_dim6top_LO_UFO_ctl2_17_uux_bepvebxmumvmxmupmum->nexternal << endl;
-
-  MGcard = MadgraphDir + "/PROC_SA_CPP_dim6top_LO_UFO_ctl2_17_DECAY_ggttll/Cards/param_card.dat";
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_uux_bmupvmbxemvexepem = new CPPProcess_P1_Sigma_dim6top_LO_UFO_ctl2_17_uux_bmupvmbxemvexepem();
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_uux_bmupvmbxemvexepem->initProc(MGcard.c_str());
-  if (verbosity>=1) cout << "TTLL_EFT Process nexternal=" << process_P1_Sigma_dim6top_LO_UFO_ctl2_17_uux_bmupvmbxemvexepem->nexternal << endl;
-
-  MGcard = MadgraphDir + "/PROC_SA_CPP_dim6top_LO_UFO_ctl2_17_DECAY_ggttll/Cards/param_card.dat";
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_uux_bmupvmbxemvexmupmum = new CPPProcess_P1_Sigma_dim6top_LO_UFO_ctl2_17_uux_bmupvmbxemvexmupmum();
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_uux_bmupvmbxemvexmupmum->initProc(MGcard.c_str());
-  if (verbosity>=1) cout << "TTLL_EFT Process nexternal=" << process_P1_Sigma_dim6top_LO_UFO_ctl2_17_uux_bmupvmbxemvexmupmum->nexternal << endl;
-
-  MGcard = MadgraphDir + "/PROC_SA_CPP_dim6top_LO_UFO_ctl2_17_DECAY_ggttll/Cards/param_card.dat";
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_uux_bmupvmbxmumvmxepem = new CPPProcess_P1_Sigma_dim6top_LO_UFO_ctl2_17_uux_bmupvmbxmumvmxepem();
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_uux_bmupvmbxmumvmxepem->initProc(MGcard.c_str());
-  if (verbosity>=1) cout << "TTLL_EFT Process nexternal=" << process_P1_Sigma_dim6top_LO_UFO_ctl2_17_uux_bmupvmbxmumvmxepem->nexternal << endl;
-
-  MGcard = MadgraphDir + "/PROC_SA_CPP_dim6top_LO_UFO_ctl2_17_DECAY_ggttll/Cards/param_card.dat";
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_uux_bmupvmbxmumvmxmupmum = new CPPProcess_P1_Sigma_dim6top_LO_UFO_ctl2_17_uux_bmupvmbxmumvmxmupmum();
-  process_P1_Sigma_dim6top_LO_UFO_ctl2_17_uux_bmupvmbxmumvmxmupmum->initProc(MGcard.c_str());
-  if (verbosity>=1) cout << "TTLL_EFT Process nexternal=" << process_P1_Sigma_dim6top_LO_UFO_ctl2_17_uux_bmupvmbxmumvmxmupmum->nexternal << endl;
+  MGcard = MadgraphDir + "/PROC_SA_CPP_dim6top_LO_UFO_ctl2_DECAY_ggttll/Cards/param_card.dat";
+  process_P1_Sigma_dim6top_LO_UFO_ctl2_gg_ttxmupmum = new CPPProcess_P1_Sigma_dim6top_LO_UFO_ctl2_gg_ttxmupmum();
+  process_P1_Sigma_dim6top_LO_UFO_ctl2_gg_ttxmupmum->initProc(MGcard.c_str());
+  if (verbosity>=1) cout << "TTLL_EFT Process nexternal=" << process_P1_Sigma_dim6top_LO_UFO_ctl2_gg_ttxmupmum->nexternal << endl;
 
 
   return;
@@ -429,6 +320,7 @@ void MEPhaseSpace::SetIntegrationMode(int imode){
 
   if (iMode==kMEM_TTH_TopAntitopHiggsDecay || iMode==kMEM_TTH_TopAntitopHiggsSemiLepDecay) iCore = kTTH;
   if (iMode==kMEM_TTLL_TopAntitopDecay) iCore = kTTLL;
+  if (iMode==kMEM_TTLL_EFT_TopAntitopDecay) iCore = kTTLL_EFT;
   if (iMode==kMEM_TTW_TopAntitopDecay) iCore = kTTW;
   if (iMode==kMEM_TTWJJ_TopAntitopDecay) iCore = kTTWJJ;
   if (iMode==kMEM_TTbar_TopAntitopFullyLepDecay || iMode==kMEM_TTbar_TopAntitopSemiLepDecay) iCore = kTTbar;
@@ -438,7 +330,7 @@ void MEPhaseSpace::SetIntegrationMode(int imode){
 
   if (iCore==kTTbar) nCoreExternals=2;
   if (iCore==kTTH || iCore==kTHJ) nCoreExternals=3;
-  if (iCore==kTTLL || iCore==kTTW || iCore==kTLLJ) nCoreExternals=4;
+  if (iCore==kTTLL || iCore==kTTW || iCore==kTLLJ || iCore==kTTLL_EFT) nCoreExternals=4;
   if (iCore==kTTWJJ || iCore==kLNuLLJJ) nCoreExternals=6;
 
   return;
@@ -448,7 +340,7 @@ int MEPhaseSpace::GetNumberIntegrationVar(int kMode, int kCatJets){
 
   nparam=5;
   if (iNleptons==3){
-    if (kMode==kMEM_TTLL_TopAntitopDecay) nparam = 5;
+    if (kMode==kMEM_TTLL_TopAntitopDecay || kMode==kMEM_TTLL_EFT_TopAntitopDecay) nparam = 5;
     if (kMode==kMEM_TTH_TopAntitopHiggsDecay || kMode==kMEM_TTH_TopAntitopHiggsSemiLepDecay) nparam = 10;
     if (kMode==kMEM_TTW_TopAntitopDecay) nparam = 9;
     if (kMode==kMEM_TTWJJ_TopAntitopDecay) nparam = 11;
@@ -474,7 +366,7 @@ int MEPhaseSpace::GetNumberIntegrationVar(int kMode, int kCatJets){
   }
   else if (iNleptons==4){
     if (kMode==kMEM_TTH_TopAntitopHiggsDecay) nparam = 11;
-    if (kMode==kMEM_TTLL_TopAntitopDecay) nparam = 6;
+    if (kMode==kMEM_TTLL_TopAntitopDecay || kMode==kMEM_TTLL_EFT_TopAntitopDecay) nparam = 6;
     if (kMode==kMEM_TTbar_TopAntitopFullyLepDecay) nparam = 6;
 
     if (kCatJets==kCat_4l_1b) nparam += 2;
@@ -1175,7 +1067,7 @@ void MEPhaseSpace::ApplyTotalTransverseBoost() const {
     FillTTHPhaseSpacePoint(Top, Antitop, Higgs);
     ReadPartonMomenta(pCore, 5);
   }
-  if (iCore==kTTLL || iCore==kTTW || iCore==kTLLJ){
+  if (iCore==kTTLL || iCore==kTTW || iCore==kTLLJ || iCore==kTTLL_EFT){
     TLorentzVector Lep1(pCore->at(4)[1], pCore->at(4)[2], pCore->at(4)[3], pCore->at(4)[0]);
     TLorentzVector Lep2(pCore->at(5)[1], pCore->at(5)[2], pCore->at(5)[3], pCore->at(5)[0]);
     TLorentzVector Ptot = Top + Antitop + Lep1 + Lep2;
@@ -1384,15 +1276,15 @@ double MEPhaseSpace::Eval(const double* x) const {
     if (weight==0) { errorCounter[kErr_Weight_Product]++; return MEMZEROWEIGHT;}
 
   }
-  if (iMode==kMEM_TTLL_TopAntitopDecay){
+  if (iMode==kMEM_TTLL_TopAntitopDecay || iMode==kMEM_TTLL_EFT_TopAntitopDecay){
 
     int inputpos = 0;
-    if (iNleptons==3 && iMode==kMEM_TTLL_TopAntitopDecay){
+    if (iNleptons==3){
       AddIntegVar_TopHad(0, x, &inputpos);
       AddIntegVar_TopLep(8, x, &inputpos, 1);
       AddIntegVar_Zoffshell(16, x, &inputpos);
     }
-    if (iNleptons==4 && iMode==kMEM_TTLL_TopAntitopDecay){
+    if (iNleptons==4){
       AddIntegVar_TopLep(0, x, &inputpos, 1);
       AddIntegVar_TopLep(8, x, &inputpos, 2);
       AddIntegVar_Zoffshell(16, x, &inputpos);

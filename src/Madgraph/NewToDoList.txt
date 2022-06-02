@@ -1,0 +1,24 @@
+Generating code for PROC_SA_CPP_dim6top_LO_UFO_ctl2_DECAY_ggttll with MakeFile name TTLL_EFT
+
+
+Add to CXXFLAGS:
+
+
+Add to LIBS:
+
+
+Add to objects:
+
+Add to TestMEMcomb.o:
+ ${TTLL_EFT_MADLIBDIR}/lib${TTLL_EFT_MADMODELLIB}.a
+
+Add at the end:
+
+Add to MEPhaseSpace.h:
+
+Add to the MEPhaseSpace class:
+
+Add to the MEPhaseSpace constructor:
+
+
+Manually change ComputeSubMatrixElement and the phase space computation

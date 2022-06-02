@@ -1,6 +1,6 @@
 #!/bin/bash
 
-model=dim6top_LO_UFO-ctl2_17
+model=dim6top_LO_UFO_ctl2
 suffix="ggttll"
 
 cd PROC_SA_CPP_${model}_DECAY_${suffix}
