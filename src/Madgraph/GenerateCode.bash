@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #PROC_SA_CPP_sm_DECAY_gqlnullgq
-model=dim6top_LO_UFO_ctl2
+model=dim6top_LO_UFO_all
 suffix="ggttll"
 Name="TTLL_EFT"
 
@@ -9,8 +9,8 @@ ProcDir=PROC_SA_CPP_${model}_DECAY_${suffix}
 echo Generating code for ${ProcDir} with MakeFile name ${Name}
 echo
 echo \#${Name}
-echo ${Name}_MADLIBDIR=../Madgraph/${ProcDir}/lib
-echo ${Name}_MADINCDIR=../Madgraph/${ProcDir}/src
+echo ${Name}_MADLIBDIR=../src/Madgraph/${ProcDir}/lib
+echo ${Name}_MADINCDIR=../src/Madgraph/${ProcDir}/src
 echo ${Name}_MADMODELLIB=model_${model}_${suffix}
 
 cd ${ProcDir}/SubProcesses

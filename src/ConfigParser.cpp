@@ -145,8 +145,8 @@ void ConfigParser::GetHypotheses(int* nhyp, string** shyp, int** hyp, int** nPoi
   (*hyp) = new int[(*nhyp)];
   (*nPointsHyp) = new int[(*nhyp)];
 
-  (*index_hyp) = new int[10];
-  for (int i=0; i<10; i++) (*index_hyp)[i] = -1;
+  (*index_hyp) = new int[11];
+  for (int i=0; i<11; i++) (*index_hyp)[i] = -1;
 
 
   int ih=0;
