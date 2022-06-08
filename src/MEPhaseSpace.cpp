@@ -42,8 +42,7 @@ MEPhaseSpace::MEPhaseSpace(){
   //total cross sections
   xsTTH = 0.284034;
   xsTTLL = 0.02722653;
-  //xsTTLL_EFT=0.0015144;
-  xsTTLL_EFT = 0.02722653;
+  xsTTLL_EFT = 0.02575;
   xsTTW = 0.04378 + 0.0217;
   xsTTbar = 441.3;
   xsTLLJ = 0.540 + 0.284;
@@ -1277,7 +1276,7 @@ double MEPhaseSpace::Eval(const double* x) const {
     if (weight==0) { errorCounter[kErr_Weight_Product]++; return MEMZEROWEIGHT;}
 
   }
-  if (iMode==kMEM_TTLL_TopAntitopDecay){
+  if (iMode==kMEM_TTLL_TopAntitopDecay || iMode==kMEM_TTLL_EFT_TopAntitopDecay){
 
     int inputpos = 0;
     if (iNleptons==3){
@@ -1316,7 +1315,8 @@ double MEPhaseSpace::Eval(const double* x) const {
     if (weight==0) { errorCounter[kErr_Weight_Product]++; return MEMZEROWEIGHT;}
 
   }
-  if (iMode==kMEM_TTLL_EFT_TopAntitopDecay){
+  //test
+  /*if (iMode==kMEM_TTLL_EFT_TopAntitopDecay){
 
     int inputpos = 0;
     if (iNleptons==3){
@@ -1352,7 +1352,8 @@ double MEPhaseSpace::Eval(const double* x) const {
     weight =weightMEPDF * weightPS * weightTF;
     if (weight==0) { errorCounter[kErr_Weight_Product]++; return MEMZEROWEIGHT;}
 
-  }
+  }*/
+  //end test
 
   if (iMode==kMEM_TTbar_TopAntitopSemiLepDecay || iMode==kMEM_TTbar_TopAntitopFullyLepDecay){
 
@@ -4622,7 +4623,7 @@ double MEPhaseSpace::ComputeMatrixElement() const {
 
   double weight = 0;
   const double* matrix_elements = 0;
-  if (iMode==kMEM_TTH_TopAntitopHiggsDecay || iMode==kMEM_TTLL_TopAntitopDecay || iMode==kMEM_TTH_TopAntitopHiggsSemiLepDecay || iMode==kMEM_TTbar_TopAntitopFullyLepDecay || iMode==kMEM_TTbar_TopAntitopSemiLepDecay){
+  if (iMode==kMEM_TTH_TopAntitopHiggsDecay || iMode==kMEM_TTLL_TopAntitopDecay || iMode==kMEM_TTLL_EFT_TopAntitopDecay || iMode==kMEM_TTH_TopAntitopHiggsSemiLepDecay || iMode==kMEM_TTbar_TopAntitopFullyLepDecay || iMode==kMEM_TTbar_TopAntitopSemiLepDecay){
     if (iGen==kMadgraph){
       if (iCore==kTTH){
         process->setMomenta(*pCore);
@@ -4636,6 +4637,22 @@ double MEPhaseSpace::ComputeMatrixElement() const {
         matrix_elements = process_ggttll->getMatrixElements();
         weight = matrix_elements[0];
       }
+      //test
+      if (iCore==kTTLL_EFT){
+        if(abs(MEMFix_HiggsFullLep.LepId)==11){
+          process_P1_Sigma_dim6top_LO_UFO_all_gg_ttxepem->setMomenta(*pCore);
+          process_P1_Sigma_dim6top_LO_UFO_all_gg_ttxepem->sigmaKin();
+          matrix_elements = process_P1_Sigma_dim6top_LO_UFO_all_gg_ttxepem->getMatrixElements();
+          weight = matrix_elements[0];
+        }
+        if(abs(MEMFix_HiggsFullLep.LepId)==13){
+          process_P1_Sigma_dim6top_LO_UFO_all_gg_ttxmupmum->setMomenta(*pCore);
+          process_P1_Sigma_dim6top_LO_UFO_all_gg_ttxmupmum->sigmaKin();
+          matrix_elements = process_P1_Sigma_dim6top_LO_UFO_all_gg_ttxmupmum->getMatrixElements();
+          weight = matrix_elements[0];
+        }
+      }
+      //end test
       if (iCore==kTTbar){
         process_P0_Sigma_sm_gg_ttx->setMomenta(*pCore);
         process_P0_Sigma_sm_gg_ttx->sigmaKin();
@@ -4896,9 +4913,9 @@ double MEPhaseSpace::ConvolvePdfCrossSection(double x1, double x2, double mu) co
     weight = pdf->xfxQ2(21, x1, mu*mu) * pdf->xfxQ2(4, x2, mu*mu) * ComputeSubMatrixElement(kWZJJ, 21, 4)
            + pdf->xfxQ2(21, x1, mu*mu) * pdf->xfxQ2(2, x2, mu*mu) * ComputeSubMatrixElement(kWZJJ, 21, 2);
   }
-  if (iMode==kMEM_TTLL_EFT_TopAntitopDecay){
-    weight = pdf->xfxQ2(21, x1, mu*mu) * pdf->xfxQ2(21, x2, mu*mu) * ComputeSubMatrixElement(kTTLL_EFT, 21, 21);
-  }
+  //if (iMode==kMEM_TTLL_EFT_TopAntitopDecay){
+  //  weight = pdf->xfxQ2(21, x1, mu*mu) * pdf->xfxQ2(21, x2, mu*mu) * ComputeSubMatrixElement(kTTLL_EFT, 21, 21);
+  //}
 
  if (verbosity>=2) cout << "Convolve CoreProcess weightMEPDF="<<weight <<endl;
 

@@ -57,6 +57,10 @@ void ConfigParser::GetConfigFromFile(string InputFile){
   ReadOptionValue(&option, &nPointsHypTHJ);
   ReadOptionValue(&option, &doTTLL_EFT);
   ReadOptionValue(&option, &nPointsHypTTLL_EFT);
+  ReadOptionValue(&option, &ctl1);
+  ReadOptionValue(&option, &ctl2);
+  ReadOptionValue(&option, &cte1);
+  ReadOptionValue(&option, &cte2);
 
   ReadOptionValue(&option, &valOptim);
   ReadOptionValue(&option, &valOptimTopHad);

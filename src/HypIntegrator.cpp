@@ -52,21 +52,16 @@ HypIntegrator::~HypIntegrator(){
 }
 
 void HypIntegrator::InitializeIntegrator(ConfigParser* cfgParser){
-  cout<<__LINE__<<endl;
   meIntegrator->SetVerbosity(cfgParser->valVerbosity);
-  cout<<__LINE__<<endl;
   meIntegrator->SetComEnergy(cfgParser->valComEnergy);
   meIntegrator->SetGenerator(cfgParser->valGenerator);
   meIntegrator->InitializeLHAPDF(cfgParser->valPdf);
   meIntegrator->InitializeMadgraphProcesses(cfgParser->valMadgraphDir);
-  cout<<__LINE__<<endl;
   meIntegrator->SetOptimization(cfgParser->valOptim);
   meIntegrator->SetOptimization(cfgParser->valOptimTopHad, cfgParser->valOptimTopLep, cfgParser->valOptimHiggs, cfgParser->valOptimW);
-  cout<<__LINE__<<endl;
   meIntegrator->JetTFfracmin = cfgParser->valJetTFfracmin;
   meIntegrator->JetTFfracmax = cfgParser->valJetTFfracmax;
   meIntegrator->NeutMaxE = cfgParser->valNeutMaxE;
-  cout<<__LINE__<<endl;
   meIntegrator->transferFunctions->SetVerbosity(cfgParser->valVerbosity);
   meIntegrator->transferFunctions->SetTFChoice(cfgParser->valTFChoice);
   meIntegrator->transferFunctions->SetTFOption(cfgParser->valTFOption);
