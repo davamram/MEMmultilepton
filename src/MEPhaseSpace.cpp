@@ -43,6 +43,7 @@ MEPhaseSpace::MEPhaseSpace(){
   xsTTH = 0.284034;
   xsTTLL = 0.02722653;
   xsTTLL_EFT = 0.02575;
+  xsTTLL_EFT_only = 0.002493;
   xsTTW = 0.04378 + 0.0217;
   xsTTbar = 441.3;
   xsTLLJ = 0.540 + 0.284;
@@ -260,6 +261,16 @@ void MEPhaseSpace::InitializeMadgraphProcesses(string MadgraphDir){
   process_P1_Sigma_dim6top_LO_UFO_all_gg_ttxmupmum->initProc(MGcard.c_str());
   if (verbosity>=1) cout << "TTLL_EFT Process nexternal=" << process_P1_Sigma_dim6top_LO_UFO_all_gg_ttxmupmum->nexternal << endl;
 
+  MGcard = MadgraphDir + "/PROC_SA_CPP_dim6top_LO_UFO_only_DECAY_ggttll/Cards/param_card.dat";
+  process_P1_Sigma_dim6top_LO_UFO_only_gg_ttxmupmum = new CPPProcess_P1_Sigma_dim6top_LO_UFO_only_gg_ttxmupmum();
+  process_P1_Sigma_dim6top_LO_UFO_only_gg_ttxmupmum->initProc(MGcard.c_str());
+  if (verbosity>=1) cout << "TTLL_EFT_ONLY Process nexternal=" << process_P1_Sigma_dim6top_LO_UFO_only_gg_ttxmupmum->nexternal << endl;
+
+  MGcard = MadgraphDir + "/PROC_SA_CPP_dim6top_LO_UFO_only_DECAY_ggttll/Cards/param_card.dat";
+  process_P1_Sigma_dim6top_LO_UFO_only_uux_ttxmupmum = new CPPProcess_P1_Sigma_dim6top_LO_UFO_only_uux_ttxmupmum();
+  process_P1_Sigma_dim6top_LO_UFO_only_uux_ttxmupmum->initProc(MGcard.c_str());
+  if (verbosity>=1) cout << "TTLL_EFT_ONLY Process nexternal=" << process_P1_Sigma_dim6top_LO_UFO_only_uux_ttxmupmum->nexternal << endl;
+
 
   return;
 }
@@ -294,7 +305,7 @@ void MEPhaseSpace::SetNleptonMode(int nleptons){
 
 }
 
-void MEPhaseSpace::SetOptimization(int iOptionTopLep, int iOptionTopHad, int iOptionHiggs, int iOptionW){
+void MEPhaseSpace::SetOptimization(int iOptionTopHad, int iOptionTopLep, int iOptionHiggs, int iOptionW){
 
   iOptimTopLep = iOptionTopLep;
   iOptimTopHad = iOptionTopHad;
@@ -321,6 +332,7 @@ void MEPhaseSpace::SetIntegrationMode(int imode){
   if (iMode==kMEM_TTH_TopAntitopHiggsDecay || iMode==kMEM_TTH_TopAntitopHiggsSemiLepDecay) iCore = kTTH;
   if (iMode==kMEM_TTLL_TopAntitopDecay) iCore = kTTLL;
   if (iMode==kMEM_TTLL_EFT_TopAntitopDecay) iCore = kTTLL_EFT;
+  if (iMode==kMEM_TTLL_EFT_only_TopAntitopDecay) iCore = kTTLL_EFT_only;
   if (iMode==kMEM_TTW_TopAntitopDecay) iCore = kTTW;
   if (iMode==kMEM_TTWJJ_TopAntitopDecay) iCore = kTTWJJ;
   if (iMode==kMEM_TTbar_TopAntitopFullyLepDecay || iMode==kMEM_TTbar_TopAntitopSemiLepDecay) iCore = kTTbar;
@@ -330,7 +342,7 @@ void MEPhaseSpace::SetIntegrationMode(int imode){
 
   if (iCore==kTTbar) nCoreExternals=2;
   if (iCore==kTTH || iCore==kTHJ) nCoreExternals=3;
-  if (iCore==kTTLL || iCore==kTTW || iCore==kTLLJ || iCore==kTTLL_EFT) nCoreExternals=4;
+  if (iCore==kTTLL || iCore==kTTW || iCore==kTLLJ || iCore==kTTLL_EFT|| iCore==kTTLL_EFT_only) nCoreExternals=4;
   if (iCore==kTTWJJ || iCore==kLNuLLJJ) nCoreExternals=6;
 
   return;
@@ -366,7 +378,7 @@ int MEPhaseSpace::GetNumberIntegrationVar(int kMode, int kCatJets){
   }
   else if (iNleptons==4){
     if (kMode==kMEM_TTH_TopAntitopHiggsDecay) nparam = 11;
-    if (kMode==kMEM_TTLL_TopAntitopDecay || kMode==kMEM_TTLL_EFT_TopAntitopDecay) nparam = 6;
+    if (kMode==kMEM_TTLL_TopAntitopDecay || kMode==kMEM_TTLL_EFT_TopAntitopDecay || kMode==kMEM_TTLL_EFT_only_TopAntitopDecay) nparam = 6;
     if (kMode==kMEM_TTbar_TopAntitopFullyLepDecay) nparam = 6;
 
     if (kCatJets==kCat_4l_1b) nparam += 2;
@@ -1067,7 +1079,7 @@ void MEPhaseSpace::ApplyTotalTransverseBoost() const {
     FillTTHPhaseSpacePoint(Top, Antitop, Higgs);
     ReadPartonMomenta(pCore, 5);
   }
-  if (iCore==kTTLL || iCore==kTTW || iCore==kTLLJ || iCore==kTTLL_EFT){
+  if (iCore==kTTLL || iCore==kTTW || iCore==kTLLJ || iCore==kTTLL_EFT || iCore==kTTLL_EFT_only){
     TLorentzVector Lep1(pCore->at(4)[1], pCore->at(4)[2], pCore->at(4)[3], pCore->at(4)[0]);
     TLorentzVector Lep2(pCore->at(5)[1], pCore->at(5)[2], pCore->at(5)[3], pCore->at(5)[0]);
     TLorentzVector Ptot = Top + Antitop + Lep1 + Lep2;
@@ -1276,8 +1288,7 @@ double MEPhaseSpace::Eval(const double* x) const {
     if (weight==0) { errorCounter[kErr_Weight_Product]++; return MEMZEROWEIGHT;}
 
   }
-  if (iMode==kMEM_TTLL_TopAntitopDecay || iMode==kMEM_TTLL_EFT_TopAntitopDecay){
-
+  if (iMode==kMEM_TTLL_TopAntitopDecay || iMode==kMEM_TTLL_EFT_TopAntitopDecay || iMode==kMEM_TTLL_EFT_only_TopAntitopDecay){
     int inputpos = 0;
     if (iNleptons==3){
       AddIntegVar_TopHad(0, x, &inputpos);
@@ -4382,6 +4393,16 @@ double MEPhaseSpace::ComputeSubMatrixElement(int iProc, int ip1, int ip2) const 
         }
 
       }
+
+      if (iProc==kTTLL_EFT_only){
+          process_P1_Sigma_dim6top_LO_UFO_only_gg_ttxmupmum->setInitial(ip1, ip2);
+          process_P1_Sigma_dim6top_LO_UFO_only_gg_ttxmupmum->setMomenta(*pCore);
+          process_P1_Sigma_dim6top_LO_UFO_only_gg_ttxmupmum->sigmaKin();
+          cout<<"on est bien la"<<endl;
+          weight=process_P1_Sigma_dim6top_LO_UFO_only_gg_ttxmupmum->sigmaHat();
+
+      }
+
       if (iProc==kTTW){
         if (MEMFix_HiggsSemiLep.LepSign>0){
 	  if ((ip1==-1 && ip2==4) || (ip1==4 && ip2==-1)){
@@ -4623,7 +4644,7 @@ double MEPhaseSpace::ComputeMatrixElement() const {
 
   double weight = 0;
   const double* matrix_elements = 0;
-  if (iMode==kMEM_TTH_TopAntitopHiggsDecay || iMode==kMEM_TTLL_TopAntitopDecay || iMode==kMEM_TTLL_EFT_TopAntitopDecay || iMode==kMEM_TTH_TopAntitopHiggsSemiLepDecay || iMode==kMEM_TTbar_TopAntitopFullyLepDecay || iMode==kMEM_TTbar_TopAntitopSemiLepDecay){
+  if (iMode==kMEM_TTH_TopAntitopHiggsDecay || iMode==kMEM_TTLL_TopAntitopDecay || iMode==kMEM_TTLL_EFT_TopAntitopDecay || iMode==kMEM_TTLL_EFT_only_TopAntitopDecay || iMode==kMEM_TTH_TopAntitopHiggsSemiLepDecay || iMode==kMEM_TTbar_TopAntitopFullyLepDecay || iMode==kMEM_TTbar_TopAntitopSemiLepDecay){
     if (iGen==kMadgraph){
       if (iCore==kTTH){
         process->setMomenta(*pCore);
@@ -4637,7 +4658,7 @@ double MEPhaseSpace::ComputeMatrixElement() const {
         matrix_elements = process_ggttll->getMatrixElements();
         weight = matrix_elements[0];
       }
-      //test
+
       if (iCore==kTTLL_EFT){
         if(abs(MEMFix_HiggsFullLep.LepId)==11){
           process_P1_Sigma_dim6top_LO_UFO_all_gg_ttxepem->setMomenta(*pCore);
@@ -4652,7 +4673,14 @@ double MEPhaseSpace::ComputeMatrixElement() const {
           weight = matrix_elements[0];
         }
       }
-      //end test
+
+      if(iCore==kTTLL_EFT_only){
+        process_P1_Sigma_dim6top_LO_UFO_only_gg_ttxmupmum->setMomenta(*pCore);
+        process_P1_Sigma_dim6top_LO_UFO_only_gg_ttxmupmum->sigmaKin();
+        matrix_elements = process_P1_Sigma_dim6top_LO_UFO_only_gg_ttxmupmum->getMatrixElements();
+        weight = matrix_elements[0];
+      }
+
       if (iCore==kTTbar){
         process_P0_Sigma_sm_gg_ttx->setMomenta(*pCore);
         process_P0_Sigma_sm_gg_ttx->sigmaKin();

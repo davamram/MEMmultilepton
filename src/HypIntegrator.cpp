@@ -66,6 +66,7 @@ void HypIntegrator::InitializeIntegrator(ConfigParser* cfgParser){
   meIntegrator->transferFunctions->SetTFChoice(cfgParser->valTFChoice);
   meIntegrator->transferFunctions->SetTFOption(cfgParser->valTFOption);
   meIntegrator->transferFunctions->LoadTFfromHisto(cfgParser->valTFfile);
+  meIntegrator->MEMFix_HiggsFullLep.WilsonCoef={cfgParser->ctl1,cfgParser->ctl2,cfgParser->cte1,cfgParser->ctl2};
 
   if (cfgParser->valVerbosity>=1) cout << "Before loading minimizers" << endl;
 
@@ -196,7 +197,12 @@ IntegrationResult HypIntegrator::DoIntegration(double* xL, double* xU, int stage
 
   //ig2->~GSLMCIntegrator();
   //param->~VegasParameters();
+  if (res.weight<0){
+    for(int i=0; i<6;i++){
+    cout<<"Error Xl/Xu = "<<xL[i]<<"/"<<xU[i]<<endl;
+  }
 
+  }
   return res;
 }
 

@@ -1,9 +1,9 @@
 #!/bin/bash
 
 #PROC_SA_CPP_sm_DECAY_gqlnullgq
-model=dim6top_LO_UFO_all
+model=dim6top_LO_UFO_only
 suffix="ggttll"
-Name="TTLL_EFT"
+Name="TTLL_EFT_ONLY"
 
 ProcDir=PROC_SA_CPP_${model}_DECAY_${suffix}
 echo Generating code for ${ProcDir} with MakeFile name ${Name}

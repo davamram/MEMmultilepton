@@ -1,5 +1,5 @@
 #include <iostream>
-#include <iomanip> 
+#include <iomanip>
 
 #include "CPPProcess_P1_Sigma_dim6top_LO_UFO_all_gg_ttxmupmum.h"
 #include "rambo.h"
@@ -8,6 +8,7 @@ int main(int argc, char** argv){
 
   // Create a process object
   CPPProcess_P1_Sigma_dim6top_LO_UFO_all_gg_ttxmupmum process;
+  Parameters_dim6top_LO_UFO_all_ggttll * pars;
 
   // Read param_card and set parameters
   process.initProc("../../Cards/param_card.dat");
@@ -16,7 +17,7 @@ int main(int argc, char** argv){
   double weight;
 
   // Get phase space point
-  vector<double*> p = get_momenta(process.ninitial, energy, 
+  vector<double*> p = get_momenta(process.ninitial, energy,
 				 process.getMasses(), weight);
 
   // Set momenta for this event
@@ -29,7 +30,7 @@ int main(int argc, char** argv){
 
   cout << "Momenta:" << endl;
   for(int i=0;i < process.nexternal; i++)
-    cout << setw(4) << i+1 
+    cout << setw(4) << i+1
 	 << setiosflags(ios::scientific) << setw(14) << p[i][0]
 	 << setiosflags(ios::scientific) << setw(14) << p[i][1]
 	 << setiosflags(ios::scientific) << setw(14) << p[i][2]
@@ -38,10 +39,17 @@ int main(int argc, char** argv){
 
   // Display matrix elements
   for(int i=0; i<process.nprocesses;i++)
-    cout << " Matrix element = " 
+    cout << " Matrix element = "
 //	 << setiosflags(ios::fixed) << setprecision(17)
 	 << matrix_elements[i]
 	 << " GeV^" << -(2*process.nexternal-8) << endl;
 
   cout << " -----------------------------------------------------------------------------" << endl;
+  pars = Parameters_dim6top_LO_UFO_all_ggttll::getInstance();
+  pars->mdl_ctl2=12;
+  cout<<pars->mdl_ctl2<<endl;
+  cout<<pars->GC_585<<endl;
+  pars->setIndependentCouplings();
+  cout<<pars->GC_585<<endl;
+
 }

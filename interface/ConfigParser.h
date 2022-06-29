@@ -28,8 +28,9 @@ class ConfigParser
   int* Hyp;
   int *index_hyp;
 
-  int doTTLL, doTTHfl, doTTHsl, doTTW, doTTWJJ, doTTbarfl, doTTbarsl, doTLLJ, doWZJJ, doTHJ;
-  int nPointsHypTTLL, nPointsHypTTHsl, nPointsHypTTHfl, nPointsHypTTW, nPointsHypTTWJJ, nPointsHypTTbarfl, nPointsHypTTbarsl, nPointsHypTLLJ, nPointsHypWZJJ, nPointsHypTHJ;
+  int doTTLL, doTTHfl, doTTHsl, doTTW, doTTWJJ, doTTbarfl, doTTbarsl, doTLLJ, doWZJJ, doTHJ, doTTLL_EFT, doTTLL_EFT_only;
+  double ctl1, ctl2, cte1, cte2;
+  int nPointsHypTTLL, nPointsHypTTHsl, nPointsHypTTHfl, nPointsHypTTW, nPointsHypTTWJJ, nPointsHypTTbarfl, nPointsHypTTbarsl, nPointsHypTLLJ, nPointsHypWZJJ, nPointsHypTHJ, nPointsHypTTLL_EFT, nPointsHypTTLL_EFT_only;
   double valJetTFfracmin, valJetTFfracmax, valNeutMaxE;
   string valJetChoice;
   int valOptim, valOptimTopLep, valOptimTopHad, valOptimHiggs, valOptimW;

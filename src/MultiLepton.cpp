@@ -252,7 +252,7 @@ void MultiLepton::LoadIntegrationRange(MEPhaseSpace** meIntegrator)
 void MultiLepton::FillParticlesHypothesis(int kMode, MEPhaseSpace** meIntegrator)
 {
 
-  if (kMode==kMEM_TTLL_TopAntitopDecay || kMode==kMEM_TTLL_EFT_TopAntitopDecay) FillTTLLHyp(meIntegrator);
+  if (kMode==kMEM_TTLL_TopAntitopDecay || kMode==kMEM_TTLL_EFT_TopAntitopDecay || kMode==kMEM_TTLL_EFT_only_TopAntitopDecay) FillTTLLHyp(meIntegrator);
   if (kMode==kMEM_TTH_TopAntitopHiggsDecay) FillTTHFullyLepHyp(meIntegrator);
   if (kMode==kMEM_TTH_TopAntitopHiggsSemiLepDecay) FillTTHSemiLepHyp(meIntegrator);
   if (kMode==kMEM_TTW_TopAntitopDecay) FillTTWHyp(meIntegrator, 0);
@@ -295,7 +295,18 @@ void MultiLepton::ReadIntegrationBoundaries(int kMode, MEPhaseSpace** meIntegrat
   }
   return;
 }
+void MultiLepton::CheckHighestPtCouple(vector <Particle> Lepton, int *checking){
 
+  if((Lepton[0].Id=Lepton[2].Id) && (Lepton[0].P4.Pt()<Lepton[2].P4.Pt())) {
+    *checking=0;
+  }
+  if((Lepton[1].Id=Lepton[3].Id) && (Lepton[1].P4.Pt()<Lepton[3].P4.Pt())) {
+    *checking=0;
+  }
+  if((Lepton[0].P4.Pt()+Lepton[1].P4.Pt())<(Lepton[2].P4.Pt()+Lepton[3].P4.Pt())){
+    *checking=0;
+  }
+}
 int MultiLepton::CheckPermutationHyp(int kMode){
 
   int check = 1;
@@ -336,10 +347,12 @@ int MultiLepton::CheckPermutationHyp(int kMode){
       if (!(Leptons[0].Id>0 && Leptons[1].Id<0)) check=0; //opposite sign, and ME needs l+ l- ordering
       if (!(Leptons[2].Id>0 && Leptons[3].Id<0)) check=0; //opposite sign leptons from tops, ordered
     }
-    if (kMode==kMEM_TTLL_TopAntitopDecay || kMode==kMEM_TTLL_EFT_TopAntitopDecay){
+    if (kMode==kMEM_TTLL_TopAntitopDecay || kMode==kMEM_TTLL_EFT_TopAntitopDecay || kMode==kMEM_TTLL_EFT_only_TopAntitopDecay){
       if (Leptons[0].Id != -Leptons[1].Id) check=0; // opposite sign same flavour to make a Z
       if (!(Leptons[0].Id>0 && Leptons[1].Id<0)) check=0; // ME needs l+ l- ordering
       if (!(Leptons[2].Id>0 && Leptons[3].Id<0)) check=0; //opposite sign leptons from tops, ordered
+
+      CheckHighestPtCouple(Leptons, &check); //Take only the highest pt-couple (cancel permutations, only one solution)
     }
     if (kMode==kMEM_TTbar_TopAntitopFullyLepDecay){
       if (!(Leptons[0].Id>0 && Leptons[1].Id<0)) check=0; //opposite sign leptons from tops, ordered

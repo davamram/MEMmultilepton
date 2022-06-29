@@ -72,6 +72,8 @@ class Permutations {
   double xs;
   double xsTTH;
   double xsTTLL;
+  double xsTTLL_EFT;
+  double xsTTLL_EFT_only;
   double xsTTW;
   double xsTTbar;
   double xsTLLJ;

@@ -112,6 +112,8 @@ int Permutations::InitializeHyp(HypIntegrator* hypIntegrator, int hyp, int nPoin
   xsTTH = (*hypIntegrator).meIntegrator->xsTTH * (*hypIntegrator).meIntegrator->brTopHad * (*hypIntegrator).meIntegrator->brTopLep * (*hypIntegrator).meIntegrator->brHiggsFullLep;
   xsTTLL = (*hypIntegrator).meIntegrator->xsTTLL * (*hypIntegrator).meIntegrator->brTopHad * (*hypIntegrator).meIntegrator->brTopLep;
   xsTTLL_EFT = (*hypIntegrator).meIntegrator->xsTTLL_EFT * (*hypIntegrator).meIntegrator->brTopHad * (*hypIntegrator).meIntegrator->brTopLep;
+  xsTTLL_EFT_only = (*hypIntegrator).meIntegrator->xsTTLL_EFT_only * (*hypIntegrator).meIntegrator->brTopHad * (*hypIntegrator).meIntegrator->brTopLep;
+
   xsTTW = (*hypIntegrator).meIntegrator->xsTTW * (*hypIntegrator).meIntegrator->brTopLep * (*hypIntegrator).meIntegrator->brTopLep;
   xsTTbar = (*hypIntegrator).meIntegrator->xsTTbar * (*hypIntegrator).meIntegrator->brTopHad * (*hypIntegrator).meIntegrator->brTopLep;
   xsTLLJ = (*hypIntegrator).meIntegrator->xsTLLJ * (*hypIntegrator).meIntegrator->brTopLep;
@@ -121,6 +123,7 @@ int Permutations::InitializeHyp(HypIntegrator* hypIntegrator, int hyp, int nPoin
   if (hyp==kMEM_TTH_TopAntitopHiggsDecay || hyp==kMEM_TTH_TopAntitopHiggsSemiLepDecay) xs = xsTTH;
   if (hyp==kMEM_TTLL_TopAntitopDecay) xs = xsTTLL;
   if (hyp==kMEM_TTLL_EFT_TopAntitopDecay) xs = xsTTLL_EFT;
+  if (hyp==kMEM_TTLL_EFT_only_TopAntitopDecay) xs = xsTTLL_EFT_only;
   if (hyp==kMEM_TTW_TopAntitopDecay || hyp==kMEM_TTWJJ_TopAntitopDecay) xs = xsTTW;
   if (hyp==kMEM_TTbar_TopAntitopSemiLepDecay || hyp==kMEM_TTbar_TopAntitopFullyLepDecay) xs = xsTTbar;
   if (hyp==kMEM_TLLJ_TopLepDecay) xs = xsTLLJ;
@@ -140,7 +143,7 @@ int Permutations::InitializeHyp(HypIntegrator* hypIntegrator, int hyp, int nPoin
   if (doMinimization>=1) (*hypIntegrator).SetupMinimizerHypothesis(hyp, multiLepton.kCatJets, 0, nPointsHyp);
 
   //Check if MEM can be computed for a given hypothesis
-  if (multiLepton.Leptons.size()==4 && (hyp!=kMEM_TTH_TopAntitopHiggsDecay && hyp!=kMEM_TTLL_TopAntitopDecay && hyp!=kMEM_TTLL_EFT_TopAntitopDecay && hyp!=kMEM_TTbar_TopAntitopFullyLepDecay)) return 0;
+  if (multiLepton.Leptons.size()==4 && (hyp!=kMEM_TTH_TopAntitopHiggsDecay && hyp!=kMEM_TTLL_TopAntitopDecay && hyp!=kMEM_TTLL_EFT_TopAntitopDecay && hyp!=kMEM_TTLL_EFT_only_TopAntitopDecay && hyp!=kMEM_TTbar_TopAntitopFullyLepDecay)) return 0;
   if (multiLepton.Leptons.size()==3 && hyp==kMEM_WZJJ_LepDecay && (multiLepton.kCatJets!=kCat_3l_1b_1j && multiLepton.kCatJets!=kCat_3l_1b_2j)) return 0;
   if (multiLepton.Leptons.size()==2 && (hyp!=kMEM_TTH_TopAntitopHiggsSemiLepDecay && hyp!=kMEM_THJ_TopLepDecay && hyp!=kMEM_TTW_TopAntitopDecay && hyp!=kMEM_TTbar_TopAntitopSemiLepDecay)) return 0;
 
@@ -245,7 +248,8 @@ void Permutations::LoopPermutations(HypIntegrator* hypIntegrator){
              combcheck = multiLepton.CheckPermutationHyp(Hypothesis);
 
              if (combcheck) {
-               for (unsigned int il=0; il<multiLepton.Leptons.size(); il++) if (verbosity>=1) {cout << " Lepton"<< il<<"Id="<<multiLepton.Leptons.at(il).Id <<endl;}
+               for (unsigned int il=0; il<multiLepton.Leptons.size(); il++) if (verbosity>=0) {cout << " Lepton"<< il<<"Id="<<multiLepton.Leptons.at(il).Id <<"  Pt="<<multiLepton.Leptons.at(il).P4.Pt()<<endl;}
+               cout<<endl;
                for (unsigned int ib=0; ib<multiLepton.Bjets.size(); ib++) if (verbosity>=1) {cout << " Bjet"<< ib<<"Pt="<<multiLepton.Bjets.at(ib).P4.Pt() <<endl;}
                for (unsigned int ij=0; ij<multiLepton.Jets.size(); ij++) if (verbosity>=1) {cout << " Jet"<< ij<<"Pt="<<multiLepton.Jets.at(ij).P4.Pt() <<endl;}
 
@@ -342,6 +346,11 @@ IntegrationResult Permutations::GetMEMKinFitResult(HypIntegrator* hypIntegrator,
   (*hypIntegrator).meIntegrator->SetMinimization(1);
 
   (*hypIntegrator).meIntegrator->weight_max = 0;
+  //NE SERT A RIEN
+  Parameters_dim6top_LO_UFO_all_ggttll * pars;
+  pars = Parameters_dim6top_LO_UFO_all_ggttll::getInstance();
+  pars->mdl_ctl2=(*hypIntegrator).meIntegrator->MEMFix_HiggsFullLep.WilsonCoef[1];
+  pars->setIndependentCouplings();
 
   for (int itry=0; itry<ntry; itry++){
 
@@ -378,6 +387,10 @@ IntegrationResult Permutations::GetMEMResult(HypIntegrator* hypIntegrator){
   iterationNumber = 5;
 
   (*hypIntegrator).meIntegrator->weight_max = 0;
+  //NE SERT A RIEN
+  Parameters_dim6top_LO_UFO_all_ggttll * pars;
+  pars = Parameters_dim6top_LO_UFO_all_ggttll::getInstance();
+  pars->mdl_ctl2=(*hypIntegrator).meIntegrator->MEMFix_HiggsFullLep.WilsonCoef[1];
   //int ninputs = (*hypIntegrator).meIntegrator->GetNumberIntegrationVar((*hypIntegrator).meIntegrator->iMode, multiLepton.kCatJets);
   //(*hypIntegrator).meIntegrator->weight_max_intvar = new float[ninputs];
 

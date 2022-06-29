@@ -1,0 +1,51 @@
+Generating code for PROC_SA_CPP_dim6top_LO_UFO_only_DECAY_ggttll with MakeFile name TTLL_EFT_ONLY
+
+#TTLL_EFT_ONLY
+TTLL_EFT_ONLY_MADLIBDIR=../src/Madgraph/PROC_SA_CPP_dim6top_LO_UFO_only_DECAY_ggttll/lib
+TTLL_EFT_ONLY_MADINCDIR=../src/Madgraph/PROC_SA_CPP_dim6top_LO_UFO_only_DECAY_ggttll/src
+TTLL_EFT_ONLY_MADMODELLIB=model_dim6top_LO_UFO_only_ggttll
+TTLL_EFT_ONLY_MADPROCESS_0=CPPProcess_P1_Sigma_dim6top_LO_UFO_only_gg_ttxmupmum
+TTLL_EFT_ONLY_MADPROCDIR_0=src/Madgraph/PROC_SA_CPP_dim6top_LO_UFO_only_DECAY_ggttll/SubProcesses/P1_Sigma_dim6top_LO_UFO_only_gg_ttxmupmum
+TTLL_EFT_ONLY_MADPROCESS_1=CPPProcess_P1_Sigma_dim6top_LO_UFO_only_uux_ttxmupmum
+TTLL_EFT_ONLY_MADPROCDIR_1=src/Madgraph/PROC_SA_CPP_dim6top_LO_UFO_only_DECAY_ggttll/SubProcesses/P1_Sigma_dim6top_LO_UFO_only_uux_ttxmupmum
+
+Add to CXXFLAGS:
+ -I${TTLL_EFT_ONLY_MADPROCDIR_0} -I${TTLL_EFT_ONLY_MADPROCDIR_1} -I${TTLL_EFT_ONLY_MADINCDIR}
+
+Add to LIBS:
+ -L${TTLL_EFT_ONLY_MADLIBDIR} -l${TTLL_EFT_ONLY_MADMODELLIB}
+
+Add to objects:
+ ${TTLL_EFT_ONLY_MADPROCDIR_0}/${TTLL_EFT_ONLY_MADPROCESS_0}.o ${TTLL_EFT_ONLY_MADPROCDIR_1}/${TTLL_EFT_ONLY_MADPROCESS_1}.o
+
+Add to TestMEMcomb.o:
+ ${TTLL_EFT_ONLY_MADLIBDIR}/lib${TTLL_EFT_ONLY_MADMODELLIB}.a
+
+Add at the end:
+
+${TTLL_EFT_ONLY_MADPROCDIR_0}/${TTLL_EFT_ONLY_MADPROCESS_0}.o: ${TTLL_EFT_ONLY_MADPROCDIR_0}/${TTLL_EFT_ONLY_MADPROCESS_0}.cc ${TTLL_EFT_ONLY_MADLIBDIR}/lib${TTLL_EFT_ONLY_MADMODELLIB}.a
+	${CXX} -l${LIBS} ${CXXFLAGS} -c ${TTLL_EFT_ONLY_MADPROCDIR_0}/${TTLL_EFT_ONLY_MADPROCESS_0}.cc
+
+${TTLL_EFT_ONLY_MADPROCDIR_1}/${TTLL_EFT_ONLY_MADPROCESS_1}.o: ${TTLL_EFT_ONLY_MADPROCDIR_1}/${TTLL_EFT_ONLY_MADPROCESS_1}.cc ${TTLL_EFT_ONLY_MADLIBDIR}/lib${TTLL_EFT_ONLY_MADMODELLIB}.a
+	${CXX} -l${LIBS} ${CXXFLAGS} -c ${TTLL_EFT_ONLY_MADPROCDIR_1}/${TTLL_EFT_ONLY_MADPROCESS_1}.cc
+
+Add to MEPhaseSpace.h:
+#include "../src/Madgraph/PROC_SA_CPP_dim6top_LO_UFO_only_DECAY_ggttll/SubProcesses/P1_Sigma_dim6top_LO_UFO_only_gg_ttxmupmum/CPPProcess_P1_Sigma_dim6top_LO_UFO_only_gg_ttxmupmum.h"
+#include "../src/Madgraph/PROC_SA_CPP_dim6top_LO_UFO_only_DECAY_ggttll/SubProcesses/P1_Sigma_dim6top_LO_UFO_only_uux_ttxmupmum/CPPProcess_P1_Sigma_dim6top_LO_UFO_only_uux_ttxmupmum.h"
+
+Add to the MEPhaseSpace class:
+CPPProcess_P1_Sigma_dim6top_LO_UFO_only_gg_ttxmupmum* process_P1_Sigma_dim6top_LO_UFO_only_gg_ttxmupmum;
+CPPProcess_P1_Sigma_dim6top_LO_UFO_only_uux_ttxmupmum* process_P1_Sigma_dim6top_LO_UFO_only_uux_ttxmupmum;
+
+Add to the MEPhaseSpace constructor:
+MGcard = MadgraphDir + "/PROC_SA_CPP_dim6top_LO_UFO_only_DECAY_ggttll/Cards/param_card.dat";
+process_P1_Sigma_dim6top_LO_UFO_only_gg_ttxmupmum = new CPPProcess_P1_Sigma_dim6top_LO_UFO_only_gg_ttxmupmum();
+process_P1_Sigma_dim6top_LO_UFO_only_gg_ttxmupmum->initProc(MGcard.c_str());
+if (verbosity>=1) cout << "TTLL_EFT_ONLY Process nexternal=" << process_P1_Sigma_dim6top_LO_UFO_only_gg_ttxmupmum->nexternal << endl;
+
+MGcard = MadgraphDir + "/PROC_SA_CPP_dim6top_LO_UFO_only_DECAY_ggttll/Cards/param_card.dat";
+process_P1_Sigma_dim6top_LO_UFO_only_uux_ttxmupmum = new CPPProcess_P1_Sigma_dim6top_LO_UFO_only_uux_ttxmupmum();
+process_P1_Sigma_dim6top_LO_UFO_only_uux_ttxmupmum->initProc(MGcard.c_str());
+if (verbosity>=1) cout << "TTLL_EFT_ONLY Process nexternal=" << process_P1_Sigma_dim6top_LO_UFO_only_uux_ttxmupmum->nexternal << endl;
+
+Manually change ComputeSubMatrixElement and the phase space computation

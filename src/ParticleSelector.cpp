@@ -328,7 +328,7 @@ void ParticleSelector::SetIntrinsicNumOfParticles(MultiLepton* multilepton_, int
     }
   }
 
-  if (hyp==kMEM_TTLL_TopAntitopDecay || hyp==kMEM_TTLL_EFT_TopAntitopDecay){
+  if (hyp==kMEM_TTLL_TopAntitopDecay || hyp==kMEM_TTLL_EFT_TopAntitopDecay || hyp==kMEM_TTLL_EFT_only_TopAntitopDecay){
     nIntrinsicBjets = 2;
     if (nActualLeptons==3) {
       nIntrinsicLeptons = 3;

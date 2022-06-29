@@ -113,6 +113,8 @@ class MultiLepton
   int DoPermutationLinear(string, vector<Particle>*);
   int CheckPermutationHyp(int);
 
+  void CheckHighestPtCouple(vector <Particle>, int*);
+
   int DoPermutationMissingJet(string);
   void SetPresenceBandJets(MEPhaseSpace**, int, int);
 

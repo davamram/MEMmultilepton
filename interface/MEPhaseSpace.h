@@ -48,7 +48,10 @@
 #include "../src/Madgraph/PROC_SA_CPP_sm_no_b_mass_DECAY_ppthq/SubProcesses/P0_Sigma_sm_no_b_mass_dxb_thux/CPPProcess_P0_Sigma_sm_no_b_mass_dxb_thux.h"
 #include "../src/Madgraph/PROC_SA_CPP_sm_no_b_mass_DECAY_ppthq/SubProcesses/P0_Sigma_sm_no_b_mass_ub_thd/CPPProcess_P0_Sigma_sm_no_b_mass_ub_thd.h"
 #include "../src/Madgraph/PROC_SA_CPP_sm_no_b_mass_DECAY_ppthq/SubProcesses/P0_Sigma_sm_no_b_mass_uxbx_txhdx/CPPProcess_P0_Sigma_sm_no_b_mass_uxbx_txhdx.h"
-
+#include "../src/Madgraph/PROC_SA_CPP_dim6top_LO_UFO_all_DECAY_ggttll/SubProcesses/P1_Sigma_dim6top_LO_UFO_all_gg_ttxepem/CPPProcess_P1_Sigma_dim6top_LO_UFO_all_gg_ttxepem.h"
+#include "../src/Madgraph/PROC_SA_CPP_dim6top_LO_UFO_all_DECAY_ggttll/SubProcesses/P1_Sigma_dim6top_LO_UFO_all_gg_ttxmupmum/CPPProcess_P1_Sigma_dim6top_LO_UFO_all_gg_ttxmupmum.h"
+#include "../src/Madgraph/PROC_SA_CPP_dim6top_LO_UFO_only_DECAY_ggttll/SubProcesses/P1_Sigma_dim6top_LO_UFO_only_gg_ttxmupmum/CPPProcess_P1_Sigma_dim6top_LO_UFO_only_gg_ttxmupmum.h"
+#include "../src/Madgraph/PROC_SA_CPP_dim6top_LO_UFO_only_DECAY_ggttll/SubProcesses/P1_Sigma_dim6top_LO_UFO_only_uux_ttxmupmum/CPPProcess_P1_Sigma_dim6top_LO_UFO_only_uux_ttxmupmum.h"
 
 #define kNoPhaseSpace -1 //No Integration, just evaluation
 #define kInitialPartons 0 //Integration over bjorken x, given the final states
@@ -77,6 +80,12 @@
 #define kMEM_WZJJ_LepDecay 22
 #define kMEM_THJ_TopLepDecay 23
 
+//Add new process
+#define kAllPartonsTTLL_EFT 24
+#define kMEM_TTLL_EFT_TopAntitopDecay 25
+#define kMEM_TTLL_EFT_only_TopAntitopDecay 26
+
+
 #define kFixMw 1
 #define kFixBenergy 2
 #define kTwoBjorken 3
@@ -99,6 +108,8 @@
 #define kTLLJ 7
 #define kWZJJ 8
 #define kTHJ 9
+#define kTTLL_EFT 10
+#define kTTLL_EFT_only 11
 
 #define kHfullylep 0
 #define kHsemilep 1
@@ -159,7 +170,7 @@ using namespace LHAPDF;
 //extern "C" void OLP_Start(const char * filename, int* success);
 //extern "C" void OLP_EvalSubProcess(int,double*,double,double*,double*);
 
-class MEPhaseSpace 
+class MEPhaseSpace
 {
 
   public:
@@ -168,7 +179,7 @@ class MEPhaseSpace
 
     double Eval(const double* ) const;
 
-    void InitializeLHAPDF(string); 
+    void InitializeLHAPDF(string);
     void InitializeMadgraphProcesses(string);
     CPPProcess* process;
     CPPProcess_tbwjj* process_tbwjj;
@@ -207,6 +218,10 @@ class MEPhaseSpace
     CPPProcess_P0_Sigma_sm_no_b_mass_dxb_thux* process_P0_Sigma_sm_no_b_mass_dxb_thux;
     CPPProcess_P0_Sigma_sm_no_b_mass_ub_thd* process_P0_Sigma_sm_no_b_mass_ub_thd;
     CPPProcess_P0_Sigma_sm_no_b_mass_uxbx_txhdx* process_P0_Sigma_sm_no_b_mass_uxbx_txhdx;
+    CPPProcess_P1_Sigma_dim6top_LO_UFO_all_gg_ttxepem* process_P1_Sigma_dim6top_LO_UFO_all_gg_ttxepem;
+    CPPProcess_P1_Sigma_dim6top_LO_UFO_all_gg_ttxmupmum* process_P1_Sigma_dim6top_LO_UFO_all_gg_ttxmupmum;
+    CPPProcess_P1_Sigma_dim6top_LO_UFO_only_gg_ttxmupmum* process_P1_Sigma_dim6top_LO_UFO_only_gg_ttxmupmum;
+    CPPProcess_P1_Sigma_dim6top_LO_UFO_only_uux_ttxmupmum* process_P1_Sigma_dim6top_LO_UFO_only_uux_ttxmupmum;
 
 
     const LHAPDF::PDF* pdf;
@@ -253,6 +268,8 @@ class MEPhaseSpace
     double brTopLep;
     double brTopHad;
     double brHiggsFullLep;
+    double xsTTLL_EFT;
+    double xsTTLL_EFT_only;
 
     mutable int errorCounter[20];
 
@@ -303,8 +320,8 @@ class MEPhaseSpace
     double SetupKinematicsTTH(const double *) const;
     double SetupKinematicsTopHad(const double *) const;
     double SetupKinematicsTopHad_FiniteWidths(const double *) const;
-    double SetupKinematicsTopLep(const double *) const; 
-    double SetupKinematicsTopLep_FixedTopM_FiniteWwidth(const double *) const; 
+    double SetupKinematicsTopLep(const double *) const;
+    double SetupKinematicsTopLep_FixedTopM_FiniteWwidth(const double *) const;
     double SetupKinematicsTopHad_FixedTopM_FiniteWwidth(const double *) const;
     double SetupKinematicsHiggsWWLep_FixedHiggsM_FiniteWwidth(const double *) const;
     double SetupKinematics1to3_LabFrame(const double *) const;
@@ -338,7 +355,7 @@ class MEPhaseSpace
 
     void CheckMatrixElement();
     double ComputeMatrixElement() const;
-    double ComputeSubMatrixElement(int , int , int ) const;	
+    double ComputeSubMatrixElement(int , int , int ) const;
     double BreitWigner(double, double, double) const;
     double KallenFunction(double , double , double ) const;
     double ComputeDecayMomenta(TLorentzVector& , double, double, double , double , TLorentzVector* , TLorentzVector* ) const;
@@ -362,11 +379,11 @@ class MEPhaseSpace
       int Top1_Decay;
       int Top1_Sign;
       int Top2_Decay;
-      int Top2_Sign; 
+      int Top2_Sign;
     } FinalStateTTV;
 
     mutable TLorentzVector Computed_mETvect;
- 
+
     double* y;
     mutable double* xMEM;
 
@@ -399,6 +416,8 @@ class MEPhaseSpace
       double Lep2_E;
       double Lep2_Theta;
       double Lep2_Phi;
+      int LepId;
+      vector<double> WilsonCoef;
     } MEMFix_HiggsFullLep;
 
     struct MEMFix_HiggsSemiLep {
@@ -433,7 +452,7 @@ class MEPhaseSpace
       double Jet1_E;
       double Jet2_E;
     } MEMKin_TopHad;
-   
+
     mutable struct MEMKin_TopLep {
       TLorentzVector Top_P4;
       TLorentzVector W_P4;

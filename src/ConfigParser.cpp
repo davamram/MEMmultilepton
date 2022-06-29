@@ -57,6 +57,8 @@ void ConfigParser::GetConfigFromFile(string InputFile){
   ReadOptionValue(&option, &nPointsHypTHJ);
   ReadOptionValue(&option, &doTTLL_EFT);
   ReadOptionValue(&option, &nPointsHypTTLL_EFT);
+  ReadOptionValue(&option, &doTTLL_EFT_only);
+  ReadOptionValue(&option, &nPointsHypTTLL_EFT_only);
   ReadOptionValue(&option, &ctl1);
   ReadOptionValue(&option, &ctl2);
   ReadOptionValue(&option, &cte1);
@@ -144,13 +146,14 @@ void ConfigParser::GetHypotheses(int* nhyp, string** shyp, int** hyp, int** nPoi
   if (doWZJJ) (*nhyp)++;
   if (doTHJ) (*nhyp)++;
   if (doTTLL_EFT) (*nhyp)++;
+  if (doTTLL_EFT_only) (*nhyp)++;
 
   (*shyp) = new string[(*nhyp)];
   (*hyp) = new int[(*nhyp)];
   (*nPointsHyp) = new int[(*nhyp)];
 
-  (*index_hyp) = new int[11];
-  for (int i=0; i<11; i++) (*index_hyp)[i] = -1;
+  (*index_hyp) = new int[12];
+  for (int i=0; i<12; i++) (*index_hyp)[i] = -1;
 
 
   int ih=0;
@@ -229,6 +232,14 @@ void ConfigParser::GetHypotheses(int* nhyp, string** shyp, int** hyp, int** nPoi
     (*hyp)[ih] = kMEM_TTLL_EFT_TopAntitopDecay;
     (*nPointsHyp)[ih] = nPointsHypTTLL_EFT;
     (*index_hyp)[10] = ih;
+    ih++;
+  }
+
+  if (doTTLL_EFT_only){
+    (*shyp)[ih] = "TTLL_EFT_only";
+    (*hyp)[ih] = kMEM_TTLL_EFT_only_TopAntitopDecay;
+    (*nPointsHyp)[ih] = nPointsHypTTLL_EFT_only;
+    (*index_hyp)[11] = ih;
     ih++;
   }
 
